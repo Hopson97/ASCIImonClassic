@@ -11,7 +11,7 @@ void
 setupConsole();
 
 int
-main()
+main()//
 {
     setupConsole();
 

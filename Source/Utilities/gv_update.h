@@ -1,5 +1,0 @@
-#ifndef GV_UPDATE_H_INCLUDED
-#define GV_UPDATE_H_INCLUDED
-
-
-#endif // GV_UPDATE_H_INCLUDED
