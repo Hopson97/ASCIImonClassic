@@ -2,20 +2,29 @@
 
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
-#include <t_casts.h>
+#include "t_casts.h"
+#include "d_tiles.h"
 
 const std::string fileType      = "Map File (.map)";
 const std::string mapLocation   = "Data/Maps/";
 
 const std::string mapSection    = "MAP";
+const std::string portalSection  = "PORTAL";
+
+int portalsRead = 0;
 
 void
 Map_Loader :: load ( Map* p_map )
 {
     m_p_map = p_map;
+
     m_p_map->m_currentArea.clear();
-    m_p_map->m_size = { 0, 0 };
+    m_p_map->m_size.reset();
+    m_p_map->m_portals.clear();
+    portalsRead = 0;
+
     readFile( fileType );
 }
 
@@ -24,26 +33,65 @@ Map_Loader :: checkLine ()
 {
     if ( checkForWord( mapSection ) )
         readMapChars();
+    else if ( checkForWord( portalSection ) )
+        readPortal();
     else
-        std::runtime_error ( "Found unknown word: " +
-                             getCurrentLineString() +
-                            ", terminating program.");
+        throwUnrecognisedWord();
 }
 
 void
 Map_Loader :: readMapChars ()
 {
-    readLine();
     while ( !endOfSection() )
     {
-        m_p_map->m_size.x =  getCurrentLineString().length();
-        m_p_map->m_size.y += 1;
-
         m_p_map->m_currentArea.append( getCurrentLineString() );
 
+        countPortalsOnLine();
 
-        readLine();
+        m_p_map->m_size.x =  getCurrentLineString().length();
+        m_p_map->m_size.y += 1;
     }
+}
+
+void
+Map_Loader :: countPortalsOnLine  ()
+{
+    for ( int x = 0 ; (unsigned)x < getCurrentLineString().length() ; x++ )
+    {
+        for ( auto& t : Tiles::portals )
+        {
+            if ( getCurrentLineString().at( (unsigned)x ) == t.first )
+            {
+                int y = m_p_map->m_size.y;
+                m_p_map->m_portals.push_back( Portal( { x, y } ) );
+            }
+        }
+    }
+}
+
+void
+Map_Loader :: readPortal ()
+{
+    const static std::string goesToSection          = "GOES TO";
+    const static std::string playerStandsSection    = "PLAYER STANDS";
+
+    Vector2i goesTo;
+    Vector2i stands;
+
+    while ( !endOfSection() )
+    {
+        if ( checkForWord( goesToSection ) )
+        {
+            goesTo = readVector2i();
+        }
+        else if ( checkForWord( playerStandsSection ) )
+        {
+            stands = readVector2i();
+        }
+        else
+            throwUnrecognisedWord();
+    }
+    m_p_map->m_portals.at( portalsRead++ ).setUp( goesTo, stands );
 }
 
 

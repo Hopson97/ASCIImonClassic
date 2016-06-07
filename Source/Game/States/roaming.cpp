@@ -5,6 +5,8 @@
 
 #include "keyboard.h"
 #include "console_funcs.h"
+#include "game_funcs.h"
+#include "d_tiles.h"
 
 bool isUpdateNeeded = true;
 
@@ -32,6 +34,7 @@ Roaming :: input ()
     }
     else if ( key == getInputKeyMovement().moveLeft )
     {
+        std::cout << "left " << std::endl;
         m_nextMove = { -1, 0 };
     }
     else if ( key == getInputKeyMovement().moveRight )
@@ -42,26 +45,26 @@ Roaming :: input ()
     {
         m_nextMove =  { 0, 1 };
     }
+    else if ( key == 'e' )
+    {
+        getGame().stopRunning();
+    }
 }
+
 
 void
 Roaming :: update ()
 {
-    if ( !m_nextMove ) return;
-
-    for ( auto& block : m_map.getBlockTiles() )
+    if ( m_nextMove )
     {
-        if ( m_map.at( getGame().getPlayer().
-                       getFieldLocation() + m_nextMove )
-            == block )
-        {
-            m_nextMove.reset();
-            break;
-        }
-    }
+        checkForBlock   ();
+        checkForMapMove ();
+        checkForPortal  ();
 
-    movePlayer( m_nextMove );
+        movePlayer( m_nextMove );
+    }
 }
+
 
 void
 Roaming :: draw ()
@@ -69,19 +72,103 @@ Roaming :: draw ()
     if ( isUpdateNeeded )
     {
         Console::clear();
-        m_map.draw( getGame().getPlayer().getFieldLocation() );
+        m_map.draw( getPlayer().getFieldLocation() );
     }
 
     isUpdateNeeded = false;
 }
 
+//Moves the player in the field
 void
 Roaming :: movePlayer  ( const Vector2i& amount )
 {
     isUpdateNeeded = true;
-    getGame().getPlayer().moveInField( amount );
+    getPlayer().moveInField( amount );
     return;
 }
+
+//Checks for if where the player is about to go is a "block" tile (non-passable)
+void
+Roaming :: checkForBlock   ()
+{
+    for ( auto& tile : Tiles::blocks )
+    {
+        if ( getTileAtPlayerLocation() == tile )
+        {
+            m_nextMove.reset();
+            break;
+        }
+    }
+}
+
+//Checks if the player is about to step on a "map move tile" and so moves the map
+//if he/she does
+void
+Roaming :: checkForMapMove ()
+{
+    for ( auto& tile : Tiles::mapMoves )
+    {
+        if ( getTileAtPlayerLocation() == tile.first )
+        {
+            m_map.moveMap            ( tile.second );
+            m_mapLoader.load         ( &m_map );
+            setPlayerPosAfterMapMove ( tile.first );
+            break;
+        }
+    }
+}
+
+void
+Roaming :: checkForPortal ()
+{
+    for ( auto& tile : Tiles::portals )
+    {
+        if ( getTileAtPlayerLocation() == tile.first )
+        {
+            const Portal& portal = m_map.
+                                    getPortalAt( getPlayer().getFieldLocation()
+                                                 + m_nextMove );
+
+            m_map.setLocation( portal.getGoesTo() );
+            getPlayer().setFieldPosition( portal.getPlayerStands() );
+            m_nextMove.reset();
+            m_mapLoader.load( &m_map );
+        }
+    }
+}
+
+
+char
+Roaming :: getTileAtPlayerLocation ()
+{
+    return m_map.at( getPlayer().
+                     getFieldLocation() + m_nextMove );
+}
+
+
+void
+Roaming :: setPlayerPosAfterMapMove ( const char tile )
+{
+    Vector2i pos = getPlayer().getFieldLocation();
+
+    if ( tile == '>' )
+    {
+        getPlayer().setFieldPosition( { 2, pos.y } );
+    }
+    else if ( tile == '<' )
+    {
+        getPlayer().setFieldPosition( { m_map.getSize().x - 2, pos.y } );
+    }
+    else if ( tile == 'v' )
+    {
+
+    }
+    else if ( tile == '^' )
+    {
+
+    }
+}
+
 
 
 }

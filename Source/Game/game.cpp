@@ -12,7 +12,7 @@ void
 Game_Main :: runLoop ()
 {
     Clock m_clock;
-    double timeFrame = 0.15;
+    double timeFrame = 0.2; //Fixed time between updates, inputs and draws
 
     while ( m_isRunning )
     {

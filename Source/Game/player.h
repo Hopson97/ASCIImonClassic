@@ -5,9 +5,11 @@
 
 class Player
 {
-    Vector2i m_mapLocation;
-    Vector2i m_fieldLocation = { 5, 10 };
-
+    struct Field_Variables
+    {
+        Vector2i location = { 11, 13 };
+        Vector2i direction;
+    } m_fieldData;
 
     public:
         Player();
@@ -17,6 +19,9 @@ class Player
 
         void
         moveInField         ( const Vector2i& amount );
+
+        void
+        setFieldPosition    ( const Vector2i& location );
 
     private:
 };

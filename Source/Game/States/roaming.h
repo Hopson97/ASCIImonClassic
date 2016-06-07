@@ -20,20 +20,35 @@ class Roaming : public State_Base
     Vector2i    m_nextMove;
 
     public:
-        Roaming( Game_Main& game, const Vector2i& mapLocation );
+        Roaming                     ( Game_Main& game, const Vector2i& mapLocation );
 
         void
-        input       () override;
+        input                       () override;
 
         void
-        update      () override;
+        update                      () override;
 
         void
-        draw        () override;
+        draw                        () override;
 
     private:
         void
-        movePlayer  ( const Vector2i& amount );
+        movePlayer                  ( const Vector2i& amount );
+
+        void
+        checkForBlock               ();
+
+        void
+        checkForMapMove             ();
+
+        void
+        checkForPortal              ();
+
+        char
+        getTileAtPlayerLocation     ();
+
+        void
+        setPlayerPosAfterMapMove    ( const char tile );
 };
 
 }

@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 
+#include "Maths/vector2.h"
+
 class Loader_Base
 {
     std::string     m_line;
@@ -25,11 +27,20 @@ class Loader_Base
         bool
         readLine                ();
 
+        void
+        readNumber              ( int& number );
+
+        const Vector2i
+        readVector2i            ();
+
         bool
         checkForWord            ( const std::string& wordToCheckFor ) const;
 
         bool
-        endOfSection            () const;
+        endOfSection            ();
+
+        void
+        throwUnrecognisedWord   () const;
 
     private:
         void

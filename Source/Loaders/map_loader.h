@@ -11,17 +11,23 @@ class Map_Loader : private Loader_Base
 
     public:
         void
-        load            ( Map* p_map );
+        load                ( Map* p_map );
 
     private:
         void
-        checkLine       () override;
+        checkLine           () override;
 
         void
-        readMapChars    ();
+        readMapChars        ();
+
+        void
+        countPortalsOnLine  ();
+
+        void
+        readPortal          ();
 
         const std::string
-        getFileName  () const override;
+        getFileName         () const override;
 
 };
 

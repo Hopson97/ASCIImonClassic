@@ -2,6 +2,7 @@
 
 #include "windows_funcs.h"
 #include "console_funcs.h"
+#include "clock.h"
 
 #include <iostream>
 
@@ -11,11 +12,8 @@ namespace Game
 void
 shortPause ( double seconds )
 {
-
-    #ifdef __WIN32
-        seconds *= 1000;
-        Sleep(seconds);
-    #endif // __WIN32
+    Clock clock;
+    while ( clock.getCurrentTime() < seconds );
 }
 
 void

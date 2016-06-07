@@ -13,11 +13,23 @@ State_Base :: State_Base ( Game_Main& game)
 :   m_game   ( game )
 { }
 
+
+
 Game_Main&
 State_Base :: getGame ()
 {
     return m_game;
 }
+
+
+
+Player&
+State_Base :: getPlayer ()
+{
+    return m_game.getPlayer();
+}
+
+
 
 const Input_Movement_Keys&
 State_Base :: getInputKeyMovement () const

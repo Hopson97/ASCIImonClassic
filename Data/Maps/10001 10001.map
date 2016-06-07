@@ -1,0 +1,13 @@
+MAP
+####
+#..#
+#..#
+##n#
+END
+
+PORTAL
+GOES TO
+0 0
+PLAYER STANDS
+6 10
+END

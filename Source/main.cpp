@@ -11,7 +11,7 @@ void
 setupConsole();
 
 int
-main()//
+main()
 {
     setupConsole();
 
@@ -29,7 +29,7 @@ setupConsole()
         constexpr short consoleHeight = 700;
 
         HWND console = GetConsoleWindow();
-
-        MoveWindow(console, 0, 0, consoleWidth, consoleHeight, TRUE);
+        //MoveWindow(console, 0, 0, consoleWidth, consoleHeight, TRUE);
+        MoveWindow(console, -1750, 0, consoleWidth, consoleHeight, TRUE);
     #endif // __WIN32
 }

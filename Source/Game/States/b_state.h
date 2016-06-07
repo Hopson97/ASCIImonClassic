@@ -5,6 +5,7 @@
     The base class for all the games states, such as menus, roaming, battles etc
 */
 
+class Player;
 class Game_Main;
 
 struct Input_Movement_Keys
@@ -41,6 +42,9 @@ class State_Base
 
         Game_Main&
         getGame             ();
+
+        Player&
+        getPlayer           ();
 
         const Input_Movement_Keys&
         getInputKeyMovement    () const;
