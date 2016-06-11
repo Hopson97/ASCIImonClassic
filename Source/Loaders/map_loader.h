@@ -5,6 +5,7 @@
 
 #include "b_loader.h"
 
+
 class Map_Loader : private Loader_Base
 {
     Map* m_p_map = nullptr;
@@ -16,6 +17,9 @@ class Map_Loader : private Loader_Base
     private:
         void
         checkLine           () override;
+
+        void
+        getName             ();
 
         void
         readMapChars        ();

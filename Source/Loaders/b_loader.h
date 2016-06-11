@@ -6,6 +6,7 @@
 
 #include "Maths/vector2.h"
 
+
 class Loader_Base
 {
     std::string     m_line;

@@ -6,7 +6,9 @@ namespace Tiles
 //Tiles the block the player
 const std::vector<char> blocks =
 {
-    '#'
+    '#',
+    '{',
+    '+'
 };
 
 

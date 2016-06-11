@@ -7,11 +7,13 @@
 #include "t_casts.h"
 #include "d_tiles.h"
 
-const std::string fileType      = "Map File (.map)";
-const std::string mapLocation   = "Data/Maps/";
+const std::string fileType          = "Map File (.map)";
+const std::string mapLocation       = "Data/Maps/";
 
-const std::string mapSection    = "MAP";
-const std::string portalSection  = "PORTAL";
+const std::string nameSection       = "NAME";
+const std::string mapSection        = "MAP";
+const std::string portalSection     = "PORTAL";
+
 
 int portalsRead = 0;
 
@@ -35,8 +37,18 @@ Map_Loader :: checkLine ()
         readMapChars();
     else if ( checkForWord( portalSection ) )
         readPortal();
+    else if ( checkForWord( nameSection ) )
+        getName();
     else
         throwUnrecognisedWord();
+}
+
+void
+Map_Loader :: getName ()
+{
+    Loader_Base::readLine();
+    m_p_map->m_currentAreaName = getCurrentLineString();
+    readLine();
 }
 
 void
@@ -98,7 +110,8 @@ Map_Loader :: readPortal ()
 const std::string
 Map_Loader :: getFileName () const
 {
-    Vector2i location = m_p_map->m_location;
+    //Short hand
+    const Vector2i& location = m_p_map->m_location;
 
     return  mapLocation +
             Convert::toString( location.x ) + " " +

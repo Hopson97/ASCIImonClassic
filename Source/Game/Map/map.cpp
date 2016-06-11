@@ -16,9 +16,12 @@ void
 Map :: draw ( const Vector2i& fieldLocation )
 {
     //Console::printTenBlankLines();
+    Console::setTextColour( Console::Foreground_Colour::WHITE );
+    std::cout << m_currentAreaName << std::endl << std::endl;
 
     int xStart;
     int xEnd;
+
     int yStart;
     int yEnd;
 

@@ -6,6 +6,9 @@
 #include "windows_funcs.h"
 
 #include "game.h"
+#include "game_funcs.h"
+
+#include <conio.h>
 
 void
 setupConsole();

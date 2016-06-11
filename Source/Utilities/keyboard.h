@@ -4,7 +4,13 @@
 namespace Keyboard
 {
     char
-    getKey();
+    getKey          ();
+
+    char
+    waitForKey      ();
+
+    void
+    waitForNoKey    ();
 }
 
 #endif // KEYBOARD_H_INCLUDED

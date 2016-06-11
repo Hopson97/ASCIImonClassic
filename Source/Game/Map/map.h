@@ -15,6 +15,7 @@ class Map
     Vector2i            m_location;
     Vector2i            m_size;
     std::string         m_currentArea;
+    std::string         m_currentAreaName;
     std::vector<Portal> m_portals;
 
     //These maps are defined in "d_tiles.h"

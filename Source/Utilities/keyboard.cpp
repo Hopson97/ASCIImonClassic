@@ -9,15 +9,28 @@
 namespace Keyboard
 {
     char
-    getKey ( )
+    getKey ()
     {
         char input = ' ';
-
         if ( kbhit() )
         {
             input =  getch();
         }
-
         return input;
+    }
+
+    char
+    waitForKey ()
+    {
+        char input = ' ';
+        while ( !kbhit() );
+        input = getch();
+        return input;
+    }
+
+    void
+    waitForNoKey ()
+    {
+        while ( kbhit() );
     }
 }

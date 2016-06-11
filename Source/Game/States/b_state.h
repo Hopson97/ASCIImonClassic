@@ -38,6 +38,12 @@ class State_Base
         virtual void
         draw                () = 0;
 
+        void
+        drawInputs          ();
+
+        void
+        changeInputKeys     ();
+
     protected:
 
         Game_Main&

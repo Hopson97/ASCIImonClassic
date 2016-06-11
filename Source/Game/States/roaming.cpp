@@ -34,7 +34,6 @@ Roaming :: input ()
     }
     else if ( key == getInputKeyMovement().moveLeft )
     {
-        std::cout << "left " << std::endl;
         m_nextMove = { -1, 0 };
     }
     else if ( key == getInputKeyMovement().moveRight )
@@ -48,6 +47,10 @@ Roaming :: input ()
     else if ( key == 'e' )
     {
         getGame().stopRunning();
+    }
+    else if ( key == 'c')
+    {
+        changeInputKeys ();
     }
 }
 
@@ -118,6 +121,10 @@ Roaming :: checkForMapMove ()
     }
 }
 
+
+/*
+    Checks for a portal in the tile where the player has stepped.
+*/
 void
 Roaming :: checkForPortal ()
 {
@@ -146,22 +153,26 @@ Roaming :: getTileAtPlayerLocation ()
 }
 
 
+/*  After going through a move tile, the map will change, thus the player must move to a different location
+    in the field depending on the direction
+    of map movement
+*/
 void
 Roaming :: setPlayerPosAfterMapMove ( const char tile )
 {
-    Vector2i pos = getPlayer().getFieldLocation();
+    const Vector2i& playerPosition = getPlayer().getFieldLocation();
 
     if ( tile == '>' )
     {
-        getPlayer().setFieldPosition( { 2, pos.y } );
+        getPlayer().setFieldPosition( { 2, playerPosition.y } );
     }
     else if ( tile == '<' )
     {
-        getPlayer().setFieldPosition( { m_map.getSize().x - 2, pos.y } );
+        getPlayer().setFieldPosition( { m_map.getSize().x - 2, playerPosition.y } );
     }
     else if ( tile == 'v' )
     {
-
+        getPlayer().setFieldPosition( { m_map.getSize().x - 2, playerPosition.y } );
     }
     else if ( tile == '^' )
     {

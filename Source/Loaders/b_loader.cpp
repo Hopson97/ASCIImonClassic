@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 
+
 void
 Loader_Base :: readFile ( const std::string& fileType )
 {
