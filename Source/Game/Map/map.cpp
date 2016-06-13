@@ -47,6 +47,7 @@ Map :: draw ( const Vector2i& fieldLocation )
         }
         Console::newLine();
     }
+    Console::setTextColour( Console::Foreground_Colour::WHITE );
 }
 
 
@@ -110,6 +111,22 @@ Map :: getPortalAt ( const Vector2i& location ) const
                               Convert::toString( location.y ) );
 }
 
+int
+Map :: getTotalAsciimonWeight  () const
+{
+    int total = 0;
+    for ( auto& asciimon : m_encounterableASCIImon )
+    {
+        total += asciimon.getWeight();
+    }
+    return total;
+}
+
+const std::vector<Encounterable_ASCIImon>&
+Map :: getEncounterableAsciimon () const
+{
+    return m_encounterableASCIImon;
+}
 
 void
 Map :: setTileColour ( const char tile )

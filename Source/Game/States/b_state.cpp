@@ -78,8 +78,6 @@ State_Base :: changeInputKeys ()
     drawInputs();
     std::cout << question << "right? ";
     m_movementInputKeys.moveRight = Keyboard::waitForKey();
-
-    Keyboard::waitForNoKey();
 }
 
 }

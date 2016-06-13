@@ -11,27 +11,29 @@ class Map_Loader : private Loader_Base
     Map* m_p_map = nullptr;
 
     public:
+        Map_Loader                  ();
+
         void
-        load                ( Map* p_map );
+        load                        ( Map* p_map );
 
     private:
         void
-        checkLine           () override;
+        getName                     ();
 
         void
-        getName             ();
+        readMapChars                ();
 
         void
-        readMapChars        ();
+        countPortalsOnLine          ();
 
         void
-        countPortalsOnLine  ();
+        readPortal                  ();
 
         void
-        readPortal          ();
+        readEncounterableAsciimon   ();
 
         const std::string
-        getFileName         () const override;
+        getFileName                 () const override;
 
 };
 

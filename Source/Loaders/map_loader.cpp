@@ -7,40 +7,37 @@
 #include "t_casts.h"
 #include "d_tiles.h"
 
-const std::string fileType          = "Map File (.map)";
-const std::string mapLocation       = "Data/Maps/";
+const std::string fileType              =   "Map File (.map)";
+const std::string mapLocation           =   "Data/Maps/";
 
-const std::string nameSection       = "NAME";
-const std::string mapSection        = "MAP";
-const std::string portalSection     = "PORTAL";
-
+const std::string nameSection           =   "NAME";
+const std::string mapSection            =   "MAP";
+const std::string portalSection         =   "PORTAL";
+const std::string encrAsciimonSection   =   "ASCIIMON";
 
 int portalsRead = 0;
+
+Map_Loader :: Map_Loader ()
+{
+    addKeyword( std::bind ( &Map_Loader::getName,                   this ), nameSection );
+    addKeyword( std::bind ( &Map_Loader::readMapChars,              this ), mapSection );
+    addKeyword( std::bind ( &Map_Loader::readPortal,                this ), portalSection );
+    addKeyword( std::bind ( &Map_Loader::readEncounterableAsciimon, this ), encrAsciimonSection );
+}
 
 void
 Map_Loader :: load ( Map* p_map )
 {
     m_p_map = p_map;
 
-    m_p_map->m_currentArea.clear();
-    m_p_map->m_size.reset();
     m_p_map->m_portals.clear();
+    m_p_map->m_currentArea.clear();
+    m_p_map->m_encounterableASCIImon.clear();
+
+    m_p_map->m_size.reset();
     portalsRead = 0;
 
     readFile( fileType );
-}
-
-void
-Map_Loader :: checkLine ()
-{
-    if ( checkForWord( mapSection ) )
-        readMapChars();
-    else if ( checkForWord( portalSection ) )
-        readPortal();
-    else if ( checkForWord( nameSection ) )
-        getName();
-    else
-        throwUnrecognisedWord();
 }
 
 void
@@ -81,6 +78,8 @@ Map_Loader :: countPortalsOnLine  ()
     }
 }
 
+
+
 void
 Map_Loader :: readPortal ()
 {
@@ -94,17 +93,43 @@ Map_Loader :: readPortal ()
     {
         if ( checkForWord( goesToSection ) )
         {
-            goesTo = readVector2i();
+            readVector2i( goesTo );
         }
         else if ( checkForWord( playerStandsSection ) )
         {
-            stands = readVector2i();
+            readVector2i( stands );
         }
         else
             throwUnrecognisedWord();
     }
     m_p_map->m_portals.at( portalsRead++ ).setUp( goesTo, stands );
 }
+
+
+void
+Map_Loader :: readEncounterableAsciimon ()
+{
+    const static std::string idSection      = "ID";
+    const static std::string weightSection  = "WEIGHT";
+
+    int id      = -1;
+    int weight  = -1;
+
+    while ( !endOfSection() )
+    {
+        if ( checkForWord( idSection ) )
+        {
+            readNumber  ( id );
+        }
+        else if ( checkForWord ( weightSection ) )
+        {
+            readNumber ( weight );
+        }
+    }
+
+    m_p_map->m_encounterableASCIImon.emplace_back( id, weight );
+}
+
 
 
 const std::string

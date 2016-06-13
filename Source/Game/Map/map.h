@@ -6,17 +6,22 @@
 #include <map>
 
 #include "Maths/vector2.h"
+
 #include "portal.h"
+#include "Asciimon/encounterable_asciimon.h"
 
 class Map
 {
     friend class Map_Loader;
 
-    Vector2i            m_location;
-    Vector2i            m_size;
-    std::string         m_currentArea;
-    std::string         m_currentAreaName;
-    std::vector<Portal> m_portals;
+    Vector2i                m_location;
+    Vector2i                m_size;
+    std::string             m_currentArea;
+    std::string             m_currentAreaName;
+    std::vector<Portal>     m_portals;
+
+    std::vector<Encounterable_ASCIImon>  m_encounterableASCIImon;
+
 
     //These maps are defined in "d_tiles.h"
 
@@ -46,6 +51,12 @@ class Map
 
         const Portal&
         getPortalAt             ( const Vector2i& location ) const;
+
+        int
+        getTotalAsciimonWeight  () const;
+
+        const std::vector<Encounterable_ASCIImon>&
+        getEncounterableAsciimon () const;
 
     private:
         void

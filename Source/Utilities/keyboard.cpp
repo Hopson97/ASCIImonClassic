@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include "game_funcs.h"
+
 
 
 namespace Keyboard
@@ -25,6 +27,7 @@ namespace Keyboard
         char input = ' ';
         while ( !kbhit() );
         input = getch();
+
         return input;
     }
 

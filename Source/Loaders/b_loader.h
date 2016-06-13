@@ -3,52 +3,60 @@
 
 #include <string>
 #include <fstream>
+#include <map>
+#include <functional>
 
 #include "Maths/vector2.h"
 
 
 class Loader_Base
 {
+    std::map < std::string, std::function<void(void)> > m_keywords;
+
+
     std::string     m_line;
     std::ifstream   m_inFile;
 
     protected:
+        void
+        addKeyword                  ( std::function<void(void)>, const std::string& keyword);
+
         virtual void
-        checkLine               () = 0;
+        checkLineForKeyword         ();
 
         virtual const std::string
-        getFileName             () const = 0;
+        getFileName                 () const = 0;
 
         void
-        readFile                ( const std::string& fileType );
+        readFile                    ( const std::string& fileType );
 
         const std::string&
-        getCurrentLineString    () const;
+        getCurrentLineString        () const;
 
         bool
-        readLine                ();
+        readLine                    ();
 
         void
-        readNumber              ( int& number );
-
-        const Vector2i
-        readVector2i            ();
-
-        bool
-        checkForWord            ( const std::string& wordToCheckFor ) const;
-
-        bool
-        endOfSection            ();
+        readNumber                  ( int& number );
 
         void
-        throwUnrecognisedWord   () const;
+        readVector2i                ( Vector2i& vector );
+
+        bool
+        checkForWord                ( const std::string& wordToCheckFor ) const;
+
+        bool
+        endOfSection                ();
+
+        void
+        throwUnrecognisedWord       () const;
 
     private:
         void
-        prepareForLoad          (); //lol that name
+        prepareForLoad              (); //lol that name
 
         void
-        openFile                ( const std::string& type, const std::string& path );
+        openFile                    ( const std::string& type, const std::string& path );
 
 
 

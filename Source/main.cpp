@@ -4,11 +4,9 @@
 #endif // __WIN32
 
 #include "windows_funcs.h"
-
 #include "game.h"
-#include "game_funcs.h"
 
-#include <conio.h>
+#include <ctime>
 
 void
 setupConsole();
@@ -16,6 +14,8 @@ setupConsole();
 int
 main()
 {
+    srand(time(NULL));
+
     setupConsole();
 
     Game_Main game;

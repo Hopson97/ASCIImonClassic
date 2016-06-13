@@ -2,6 +2,11 @@
 
 #include <stdexcept>
 
+void
+Loader_Base :: addKeyword ( std::function<void(void)> function, const std::string& keyword)
+{
+    m_keywords[keyword] = function;
+}
 
 void
 Loader_Base :: readFile ( const std::string& fileType )
@@ -12,11 +17,24 @@ Loader_Base :: readFile ( const std::string& fileType )
     while ( readLine() )
     {
         if ( checkForWord( "//" ) ) continue;
-        checkLine();
+        checkLineForKeyword();
     }
     m_inFile.close();
 }
 
+void
+Loader_Base :: checkLineForKeyword ()
+{
+    for ( auto& keyword : m_keywords )
+    {
+        if ( checkForWord( keyword.first ) )
+        {
+            keyword.second();
+            return;
+        }
+    }
+    throwUnrecognisedWord();
+}
 
 const std::string&
 Loader_Base :: getCurrentLineString () const
@@ -37,13 +55,10 @@ Loader_Base :: readNumber ( int& number )
     m_inFile >> number;
 }
 
-const Vector2i
-Loader_Base :: readVector2i ()
+void
+Loader_Base :: readVector2i ( Vector2i& vector )
 {
-    int x;
-    int y;
-    m_inFile >> x >> y;
-    return { x, y };
+    m_inFile >> vector.x >> vector.y;
 }
 
 bool
@@ -57,9 +72,10 @@ void
 Loader_Base :: throwUnrecognisedWord   () const
 {
     if ( m_line == "") return;
-    throw std::runtime_error ( "Found unknown word: " +
+    throw std::runtime_error ( "\tFound unknown word: " +
                                 m_line +
-                               ", terminating program.");
+                               ", terminating program.\
+                               \n");
 }
 
 
