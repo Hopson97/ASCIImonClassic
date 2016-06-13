@@ -8,6 +8,7 @@ Loader_Base :: addKeyword ( std::function<void(void)> function, const std::strin
     m_keywords[keyword] = function;
 }
 
+//Fully reads the file, using the functions and keyword pairs passed in from a derived class
 void
 Loader_Base :: readFile ( const std::string& fileType )
 {
@@ -22,6 +23,8 @@ Loader_Base :: readFile ( const std::string& fileType )
     m_inFile.close();
 }
 
+//Goes through the function/ keyword list and calls a function if the keyword matches the read line
+//If it does not, it means an unrecognised word is found, of which needs to be dealt with
 void
 Loader_Base :: checkLineForKeyword ()
 {
@@ -36,13 +39,14 @@ Loader_Base :: checkLineForKeyword ()
     throwUnrecognisedWord();
 }
 
+
 const std::string&
 Loader_Base :: getCurrentLineString () const
 {
     return m_line;
 }
 
-
+//Bunch of reader functions for the derived classes
 bool
 Loader_Base :: readLine ()
 {
@@ -78,13 +82,15 @@ Loader_Base :: throwUnrecognisedWord   () const
                                \n");
 }
 
-
+//Each section of the files is marked by a END, and this checks for that
 bool
 Loader_Base :: endOfSection ()
 {
     readLine();
     return checkForWord( "END" );
 }
+
+
 
 void
 Loader_Base :: openFile ( const std::string& type, const std::string& path )
@@ -98,6 +104,8 @@ Loader_Base :: openFile ( const std::string& type, const std::string& path )
     }
 }
 
+
+//: ^ )
 void
 Loader_Base :: prepareForLoad ()
 {
