@@ -1,23 +1,21 @@
 #include "game_funcs.h"
 
-#include "windows_funcs.h"
-#include "console_funcs.h"
-#include "clock.h"
+#include "../Utilities/windows_funcs.h"
+#include "../Utilities/console_funcs.h"
+#include "../Utilities/clock.h"
 
 #include <iostream>
 
 namespace Game
 {
 
-void
-shortPause ( double seconds )
+void shortPause ( double seconds )
 {
     Clock clock;
     while ( clock.getCurrentTime() < seconds );
 }
 
-void
-pressEnterToContinue ()
+void pressEnterToContinue ()
 {
     Console::newLine();
 

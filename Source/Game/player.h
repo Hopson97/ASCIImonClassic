@@ -14,14 +14,10 @@ class Player
     public:
         Player();
 
-        const Vector2i&
-        getFieldLocation    () const;
+        const Vector2i& getFieldLocation    () const;
 
-        void
-        moveInField         ( const Vector2i& amount );
-
-        void
-        setFieldPosition    ( const Vector2i& location );
+        void moveInField         ( const Vector2i& amount );
+        void setFieldPosition    ( const Vector2i& location );
 
     private:
 };

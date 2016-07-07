@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "console_funcs.h"
+#include "../../Utilities/t_casts.h"
+#include "../../Utilities/console_funcs.h"
 #include "d_tiles.h"
-#include "t_casts.h"
 
 constexpr short areaVisible = 8;
 
@@ -12,8 +12,7 @@ Map :: Map( const int x, const int y )
 :   m_location  ( x, y )
 { }
 
-void
-Map :: draw ( const Vector2i& fieldLocation )
+void Map :: draw ( const Vector2i& fieldLocation )
 {
     //Console::printTenBlankLines();
     Console::setTextColour( Console::Foreground_Colour::WHITE );
@@ -51,52 +50,45 @@ Map :: draw ( const Vector2i& fieldLocation )
 }
 
 
-const Vector2i&
-Map :: getLocation () const
+const Vector2i& Map :: getLocation () const
 {
     return m_location;
 }
 
 
-void
-Map :: setLocation ( const Vector2i& location )
+void Map :: setLocation ( const Vector2i& location )
 {
     m_location = location;
 }
 
 
 
-char
-Map :: at ( const int x, const int y) const
+char Map :: at ( const int x, const int y) const
 {
     return m_currentArea.at( ( y * m_size.x ) + x );
 }
 
 
-char
-Map :: at ( const Vector2i& location ) const
+char Map :: at ( const Vector2i& location ) const
 {
     return at ( location.x, location.y );
 }
 
 
-void
-Map :: moveMap ( const Vector2i& amount )
+void Map :: moveMap ( const Vector2i& amount )
 {
     m_location.x += amount.x;
     m_location.y += amount.y;
 }
 
 
-const Vector2i&
-Map :: getSize () const
+const Vector2i& Map :: getSize () const
 {
     return m_size;
 }
 
 
-const Portal&
-Map :: getPortalAt ( const Vector2i& location ) const
+const Portal& Map :: getPortalAt ( const Vector2i& location ) const
 {
     for ( auto& portal : m_portals )
     {
@@ -111,8 +103,7 @@ Map :: getPortalAt ( const Vector2i& location ) const
                               Convert::toString( location.y ) );
 }
 
-int
-Map :: getTotalAsciimonWeight  () const
+int Map :: getTotalAsciimonWeight  () const
 {
     int total = 0;
     for ( auto& asciimon : m_encounterableASCIImon )
@@ -122,14 +113,12 @@ Map :: getTotalAsciimonWeight  () const
     return total;
 }
 
-const std::vector<Encounterable_ASCIImon>&
-Map :: getEncounterableAsciimon () const
+const std::vector<Encounterable_ASCIImon>& Map :: getEncounterableAsciimon () const
 {
     return m_encounterableASCIImon;
 }
 
-void
-Map :: setTileColour ( const char tile )
+void Map :: setTileColour ( const char tile )
 {
     try
     {
@@ -141,10 +130,9 @@ Map :: setTileColour ( const char tile )
     }
 }
 
-void
-Map :: getMapDrawStartAndEnd   ( const Vector2i& fieldLocation,
-                                 int& xStart, int& yStart,
-                                 int& xEnd,   int& yEnd )
+void Map :: getMapDrawStartAndEnd ( const Vector2i& fieldLocation,
+									int& xStart, int& yStart,
+									int& xEnd,   int& yEnd )
 {
     xStart = fieldLocation.x - areaVisible + 1;
     xEnd   = fieldLocation.x + areaVisible;

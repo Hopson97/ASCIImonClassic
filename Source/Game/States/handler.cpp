@@ -16,8 +16,7 @@ Handler :: ~Handler ()
 
 
 
-void
-Handler :: changeState ( State_Base* state)
+void Handler :: changeState ( State_Base* state)
 {
     if( !m_states.empty() ) {;
         popState();
@@ -27,16 +26,14 @@ Handler :: changeState ( State_Base* state)
 
 
 
-void
-Handler :: pushState ( State_Base* state )
+void Handler :: pushState ( State_Base* state )
 {
     m_states.emplace ( state );
 }
 
 
 
-void
-Handler :: popState ()
+void Handler :: popState ()
 {
     if( !m_states.empty() ) {
         delete m_states.top();
@@ -46,14 +43,12 @@ Handler :: popState ()
 
 
 
-State_Base*
-Handler :: peekState ()
+State_Base* Handler :: peekState ()
 {
     return m_states.top() ;
 }
 
-std :: size_t
-Handler :: size () const
+std::size_t Handler :: size () const
 {
     return m_states.size();
 }

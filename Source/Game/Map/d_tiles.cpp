@@ -4,23 +4,20 @@ namespace Tiles
 {
 
 //Tiles the block the player
-const
-std::vector<char> blocks =
+const std::vector<char> blocks =
 {
     '#',
     '{',
     '+'
 };
 
-const extern
-std::vector <char> water =
+const std::vector <char> water =
 {
     '~',
     '*'
 };
 
-const
-std::vector <char> encounterTiles =
+const std::vector <char> encounterTiles =
 {
     '|',
     ','
@@ -28,8 +25,7 @@ std::vector <char> encounterTiles =
 
 
 //Recognised tiles and their colours
-const
-std::map<char, Console::Foreground_Colour> colours =
+const std::map<char, Console::Foreground_Colour> colours =
 {
     { '@',  Console::Foreground_Colour::CYAN        },
 
@@ -60,8 +56,7 @@ std::map<char, Console::Foreground_Colour> colours =
 
 
 //Tiles that when the player steps on, it loads a new area and the "direction" of them
-const
-std::map<char, Vector2i> mapMoves =
+const std::map<char, Vector2i> mapMoves =
 {
     { '>',  {  1,  0 } },
     { '<',  { -1,  0 } },
@@ -71,8 +66,7 @@ std::map<char, Vector2i> mapMoves =
 };
 
 //Portals eg doors, and the "direction" the player faces when entering through them
-const
-std::map<char, Vector2i> portals
+const std::map<char, Vector2i> portals
 {
     { '1', { 1,  0 } },
     { 'n', { -1, 0 } }

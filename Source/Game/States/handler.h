@@ -17,23 +17,18 @@ class Handler
     std::stack<State_Base*> m_states;
 
     public:
-        ~Handler();
+        ~Handler    ();
 
-        void
-        changeState ( State_Base* state);
+        void  changeState   ( State_Base* state);
 
-        void
-        pushState   ( State_Base* state );
+        void pushState      ( State_Base* state );
 
-        void
-        popState        ();
+        void popState       ();
 
-        State_Base*
-        peekState       ();
+        State_Base* peekState   ();
 
 
-        std :: size_t
-        size            () const;
+        std :: size_t size      () const;
 };
 
 }

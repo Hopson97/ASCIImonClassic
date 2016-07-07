@@ -8,8 +8,7 @@
 namespace Console
 {
 
-void
-clear ()
+void clear ()
 {
     #ifdef __WIN32
         char fill = ' ';
@@ -26,8 +25,7 @@ clear ()
     #endif
 }
 
-void
-setTextColour ( Foreground_Colour colour )
+void setTextColour ( Foreground_Colour colour )
 {
     #ifdef __WIN32
         SetConsoleTextAttribute ( GetStdHandle ( STD_OUTPUT_HANDLE),
@@ -35,8 +33,7 @@ setTextColour ( Foreground_Colour colour )
     #endif // __WIN32
 }
 
-void
-setBackgroundColour ( Background_Colour colour)
+void setBackgroundColour ( Background_Colour colour)
 {
     #ifdef __WIN32
         SetConsoleTextAttribute ( GetStdHandle ( STD_OUTPUT_HANDLE),
@@ -44,28 +41,24 @@ setBackgroundColour ( Background_Colour colour)
     #endif // __WIN32
 }
 
-void
-resetColours ()
+void resetColours ()
 {
     setBackgroundColour ( Background_Colour::BLACK);
     setTextColour       ( Foreground_Colour::WHITE );
 }
 
-void
-newLine ()
+void newLine ()
 {
     std::cout << std::endl;
 }
 
-void
-lineStartSpace ()
+void lineStartSpace ()
 {
     //Basically it looks a lot better if the map doesn't start in the top left
     std::cout << "         ";
 }
 
-void
-printTenBlankLines  ()
+void printTenBlankLines  ()
 {
     for ( int i = 0 ; i < 10 ; i++ )
     {

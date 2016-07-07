@@ -4,14 +4,13 @@
 
 #include <iostream>
 
-#include "game_funcs.h"
+#include "../Game/game_funcs.h"
 
 
 
 namespace Keyboard
 {
-    char
-    getKey ()
+    char getKey ()
     {
         char input = ' ';
         if ( kbhit() )
@@ -21,8 +20,7 @@ namespace Keyboard
         return input;
     }
 
-    char
-    waitForKey ()
+    char waitForKey ()
     {
         char input = ' ';
         while ( !kbhit() );
@@ -31,8 +29,7 @@ namespace Keyboard
         return input;
     }
 
-    void
-    waitForNoKey ()
+    void waitForNoKey ()
     {
         while ( kbhit() );
     }

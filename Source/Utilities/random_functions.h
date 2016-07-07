@@ -3,8 +3,7 @@
 
 namespace Random
 {
-    int
-    integer ( const int low, const int high);
+    int integer ( const int low, const int high);
 }
 
 #endif // RANDOM_FUNCTIONS_H_INCLUDED

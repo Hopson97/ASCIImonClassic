@@ -4,11 +4,9 @@
 
 namespace Game
 {
-    void
-    shortPause              ( double seconds );
+    void shortPause             ( double seconds );
 
-    void
-    pressEnterToContinue    ();
+    void pressEnterToContinue   ();
 }
 
 #endif // GAME_FUNCS_H

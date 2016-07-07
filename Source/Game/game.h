@@ -11,26 +11,20 @@ class Game_Main
     bool            m_isRunning = true;
 
     public:
-        Game_Main           ();
+        Game_Main   ();
 
-        void
-        runLoop             ();
+        void runLoop                ();
 
-        State::Handler&
-        getStates           ();
+        State::Handler& getStates   ();
 
-        Player&
-        getPlayer           ();
+        Player&  getPlayer  ();
 
-        void
-        stopRunning         ();
+        void stopRunning    ();
 
-        void
-        save                ();
+        void save           ();
 
     private:
-        bool
-        saveIfClosed        ();
+        bool saveIfClosed   ();
 
 
 };

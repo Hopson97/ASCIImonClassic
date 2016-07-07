@@ -4,8 +4,8 @@
 #include <string>
 #include <iostream>
 
-#include "t_casts.h"
-#include "d_tiles.h"
+#include "../Utilities/t_casts.h"
+#include "../Game/Map/d_tiles.h"
 
 const std::string fileType              =   "Map File (.map)";
 const std::string mapLocation           =   "Data/Maps/";
@@ -25,8 +25,7 @@ Map_Loader :: Map_Loader ()
     addKeyword( std::bind ( &Map_Loader::readEncounterableAsciimon, this ), encrAsciimonSection );
 }
 
-void
-Map_Loader :: load ( Map* p_map )
+void Map_Loader :: load ( Map* p_map )
 {
     m_p_map = p_map;
 
@@ -40,16 +39,14 @@ Map_Loader :: load ( Map* p_map )
     readFile( fileType );
 }
 
-void
-Map_Loader :: getName ()
+void Map_Loader :: getName ()
 {
     Loader_Base::readLine();
     m_p_map->m_currentAreaName = getCurrentLineString();
     readLine();
 }
 
-void
-Map_Loader :: readMapChars ()
+void Map_Loader :: readMapChars ()
 {
     while ( !endOfSection() )
     {
@@ -62,8 +59,7 @@ Map_Loader :: readMapChars ()
     }
 }
 
-void
-Map_Loader :: countPortalsOnLine  ()
+void Map_Loader :: countPortalsOnLine  ()
 {
     for ( int x = 0 ; (unsigned)x < getCurrentLineString().length() ; x++ )
     {
@@ -80,8 +76,7 @@ Map_Loader :: countPortalsOnLine  ()
 
 
 
-void
-Map_Loader :: readPortal ()
+void Map_Loader :: readPortal ()
 {
     const static std::string goesToSection          = "GOES TO";
     const static std::string playerStandsSection    = "PLAYER STANDS";
@@ -106,8 +101,7 @@ Map_Loader :: readPortal ()
 }
 
 
-void
-Map_Loader :: readEncounterableAsciimon ()
+void Map_Loader :: readEncounterableAsciimon ()
 {
     const static std::string idSection      = "ID";
     const static std::string weightSection  = "WEIGHT";
@@ -132,8 +126,7 @@ Map_Loader :: readEncounterableAsciimon ()
 
 
 
-const std::string
-Map_Loader :: getFileName () const
+const std::string Map_Loader :: getFileName () const
 {
     //Short hand
     const Vector2i& location = m_p_map->m_location;

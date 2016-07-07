@@ -14,27 +14,23 @@ struct Vector2
     ,   y ( y )
     { }
 
-    const Vector2<T>
-    operator +( const Vector2<T>& other ) const
+    const Vector2<T> operator +( const Vector2<T>& other ) const
     {
         return Vector2( x + other.x, y + other.y );
     }
 
-    void
-    operator +=( const Vector2<T>& other )
+    void operator +=( const Vector2<T>& other )
     {
         x += other.x;
         y += other.y;
     }
 
-    bool
-    operator ==( const Vector2<T>& other ) const
+    bool operator ==( const Vector2<T>& other ) const
     {
         return x == other.x && y == other.y;
     }
 
-    void
-    reset ()
+    void reset ()
     {
         x = 0;
         y = 0;

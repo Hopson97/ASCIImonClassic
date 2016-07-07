@@ -1,13 +1,14 @@
-#include "States/roaming.h"
+#include "roaming.h"
 
 #include <conio.h>
 #include <iostream>
 
-#include "keyboard.h"
-#include "console_funcs.h"
-#include "game_funcs.h"
-#include "d_tiles.h"
-#include "random_functions.h"
+#include "../../Utilities/keyboard.h"
+#include "../../Utilities/console_funcs.h"
+#include "../../Utilities/random_functions.h"
+
+#include "../game_funcs.h"
+#include "../Map/d_tiles.h"
 
 namespace State
 {
@@ -19,8 +20,7 @@ Roaming :: Roaming ( Game_Main& game, const Vector2i& mapLocation )
     m_mapLoader.load( &m_map );
 }
 
-void
-Roaming :: input ()
+void Roaming :: input ()
 {
     m_nextMove.reset();
     char key = Keyboard::getKey();
@@ -52,8 +52,7 @@ Roaming :: input ()
 }
 
 
-void
-Roaming :: update ()
+void Roaming :: update ()
 {
     if ( m_nextMove )
     {
@@ -69,8 +68,7 @@ Roaming :: update ()
 }
 
 
-void
-Roaming :: draw ()
+void Roaming :: draw ()
 {
     if ( isUpdateNeeded )
     {
@@ -84,8 +82,7 @@ Roaming :: draw ()
 //Encounter code begins by testing if an encounter will happen
 //And then it tests for which ASCIImon to attack
 //And then changes the game state
-void
-Roaming :: testForEncounter ()
+void Roaming :: testForEncounter ()
 {
     if ( !testForEncounterTile() ) return;
 
@@ -100,8 +97,7 @@ Roaming :: testForEncounter ()
 }
 
 //Checks if the tile being stood on is a tile that has potential to have an encounter eg long grass
-bool
-Roaming :: testForEncounterTile ()
+bool Roaming :: testForEncounterTile ()
 {
     for ( auto& tile : Tiles::encounterTiles )
     {
@@ -114,8 +110,7 @@ Roaming :: testForEncounterTile ()
 
 #define FAILURE -1
 
-void
-Roaming :: startEncounter ( const int chance )
+void Roaming :: startEncounter ( const int chance )
 {
 
     int id = getAsciimonIdToEncounter( chance );
@@ -139,8 +134,7 @@ Roaming :: startEncounter ( const int chance )
     Step Two:
         The bounds are simply checked against the bounds until the correct ASCIImon is found
 */
-int
-Roaming :: getAsciimonIdToEncounter ( const int chance )
+int Roaming :: getAsciimonIdToEncounter ( const int chance )
 {
     struct Potential_ASCIImon
     {
@@ -176,16 +170,14 @@ Roaming :: getAsciimonIdToEncounter ( const int chance )
 
 
 //Moves the player in the field
-void
-Roaming :: movePlayer  ( const Vector2i& amount )
+void Roaming :: movePlayer  ( const Vector2i& amount )
 {
     isUpdateNeeded = true;
     getPlayer().moveInField( amount );
 }
 
 //Checks for if where the player is about to go is a "block" tile (non-passable)
-void
-Roaming :: checkForBlock   ()
+void Roaming :: checkForBlock   ()
 {
     for ( auto& tile : Tiles::blocks )
     {
@@ -198,8 +190,7 @@ Roaming :: checkForBlock   ()
 }
 
 //Checks for if where the player is about to go is a "water" tile (non-passable if NOT SWIMMING)
-void
-Roaming :: checkForWater()
+void Roaming :: checkForWater()
 {
     for ( auto& tile : Tiles::water )
     {
@@ -214,8 +205,7 @@ Roaming :: checkForWater()
 
 //Checks if the player is about to step on a "map move tile" and so moves the map
 //if he/she does
-void
-Roaming :: checkForMapMove ()
+void Roaming :: checkForMapMove ()
 {
     for ( auto& tile : Tiles::mapMoves )
     {
@@ -233,8 +223,7 @@ Roaming :: checkForMapMove ()
 /*
     Checks for a portal in the tile where the player has stepped.
 */
-void
-Roaming :: checkForPortal ()
+void Roaming :: checkForPortal ()
 {
     for ( auto& tile : Tiles::portals )
     {
@@ -253,16 +242,14 @@ Roaming :: checkForPortal ()
 }
 
 
-char
-Roaming :: getTileAtPlayerNextLocation ()
+char Roaming :: getTileAtPlayerNextLocation ()
 {
     return m_map.at( getPlayer().
                      getFieldLocation() + m_nextMove );
 }
 
 
-char
-Roaming :: getTileAtPlayerCurrLocation ()
+char Roaming :: getTileAtPlayerCurrLocation ()
 {
     return m_map.at( getPlayer().getFieldLocation() );
 }
@@ -272,8 +259,7 @@ Roaming :: getTileAtPlayerCurrLocation ()
     in the field depending on the direction
     of map movement
 */
-void
-Roaming :: setPlayerPosAfterMapMove ( const char tile )
+void Roaming :: setPlayerPosAfterMapMove ( const char tile )
 {
     const Vector2i& playerPosition = getPlayer().getFieldLocation();
 

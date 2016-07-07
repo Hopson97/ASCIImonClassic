@@ -6,7 +6,7 @@
 #include <map>
 #include <functional>
 
-#include "Maths/vector2.h"
+#include "../Game/Maths/vector2.h"
 
 
 class Loader_Base
@@ -18,45 +18,30 @@ class Loader_Base
     std::ifstream   m_inFile;
 
     protected:
-        void
-        addKeyword                  ( std::function<void(void)>, const std::string& keyword);
+        void addKeyword                         ( std::function<void(void)>, const std::string& keyword);
 
-        virtual void
-        checkLineForKeyword         ();
+        virtual void checkLineForKeyword        ();
 
-        virtual const std::string
-        getFileName                 () const = 0;
+        virtual const std::string getFileName   () const = 0;
 
-        void
-        readFile                    ( const std::string& fileType );
+        void readFile                           ( const std::string& fileType );
 
-        const std::string&
-        getCurrentLineString        () const;
+        const std::string& getCurrentLineString () const;
 
-        bool
-        readLine                    ();
+        bool readLine           ();
+        void readNumber         ( int& number );
+        void readVector2i       ( Vector2i& vector );
 
-        void
-        readNumber                  ( int& number );
+        bool checkForWord       ( const std::string& wordToCheckFor ) const;
 
-        void
-        readVector2i                ( Vector2i& vector );
+        bool endOfSection       ();
 
-        bool
-        checkForWord                ( const std::string& wordToCheckFor ) const;
-
-        bool
-        endOfSection                ();
-
-        void
-        throwUnrecognisedWord       () const;
+        void throwUnrecognisedWord   () const;
 
     private:
-        void
-        prepareForLoad              (); //lol that name
+        void prepareForLoad (); //lol that name
 
-        void
-        openFile                    ( const std::string& type, const std::string& path );
+        void  openFile      ( const std::string& type, const std::string& path );
 
 
 

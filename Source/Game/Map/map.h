@@ -5,10 +5,10 @@
 #include <vector>
 #include <map>
 
-#include "Maths/vector2.h"
+#include "../Maths/vector2.h"
 
 #include "portal.h"
-#include "Asciimon/encounterable_asciimon.h"
+#include "../Asciimon/encounterable_asciimon.h"
 
 class Map
 {
@@ -26,46 +26,33 @@ class Map
     //These maps are defined in "d_tiles.h"
 
     public:
-        Map                     ( const int x, const int y );
+        Map         ( const int x, const int y );
 
-        void
-        draw                    ( const Vector2i& fieldLocation );
+        void draw   ( const Vector2i& fieldLocation );
 
-        const Vector2i&
-        getLocation             () const;
+        const Vector2i& getLocation () const;
 
-        void
-        setLocation             ( const Vector2i& location );
+        void setLocation    ( const Vector2i& location );
 
-        char
-        at                      ( const int x, const int y) const;
+        char at             ( const int x, const int y) const;
+        char at             ( const Vector2i& location ) const;
 
-        char
-        at                      ( const Vector2i& location ) const;
+        void moveMap        ( const Vector2i& amount );
 
-        void
-        moveMap                 ( const Vector2i& amount );
+        const Vector2i& getSize     () const;
 
-        const Vector2i&
-        getSize                 () const;
+        const Portal& getPortalAt   ( const Vector2i& location ) const;
 
-        const Portal&
-        getPortalAt             ( const Vector2i& location ) const;
+        int getTotalAsciimonWeight  () const;
 
-        int
-        getTotalAsciimonWeight  () const;
-
-        const std::vector<Encounterable_ASCIImon>&
-        getEncounterableAsciimon () const;
+        const std::vector<Encounterable_ASCIImon>& getEncounterableAsciimon () const;
 
     private:
-        void
-        setTileColour           ( const char tile );
+        void  setTileColour         ( const char tile );
 
-        void
-        getMapDrawStartAndEnd   ( const Vector2i& fieldLocation,
-                                  int& xStart, int& yStart,
-                                  int& xEnd,   int& yEnd );
+        void getMapDrawStartAndEnd  ( const Vector2i& fieldLocation,
+                                     int& xStart, int& yStart,
+                                     int& xEnd,   int& yEnd );
 
 };
 

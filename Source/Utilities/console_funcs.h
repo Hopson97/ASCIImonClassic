@@ -5,26 +5,19 @@
 
 namespace Console
 {
-    void
-    clear               ();
+    void clear               ();
 
-    void
-    setTextColour       ( Foreground_Colour colour );
+    void setTextColour       ( Foreground_Colour colour );
 
-    void
-    setBackgroundColour ( Background_Colour colour);
+    void setBackgroundColour ( Background_Colour colour);
 
-    void
-    resetColours        ();
+    void resetColours        ();
 
-    void
-    newLine             ();
+    void newLine             ();
 
-    void
-    lineStartSpace      ();
+    void lineStartSpace      ();
 
-    void
-    printTenBlankLines  ();
+    void printTenBlankLines  ();
 
 }
 

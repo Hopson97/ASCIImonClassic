@@ -3,8 +3,8 @@
 #include <iostream>
 
 #include "../game.h"
-#include "console_funcs.h"
-#include "keyboard.h"
+#include "../../Utilities/console_funcs.h"
+#include "../../Utilities/keyboard.h"
 
 /**
     The base class for all the games states, such as menus, roaming, battles etc
@@ -19,30 +19,26 @@ State_Base :: State_Base ( Game_Main& game)
 
 
 
-Game_Main&
-State_Base :: getGame ()
+Game_Main& State_Base :: getGame ()
 {
     return m_game;
 }
 
 
 
-Player&
-State_Base :: getPlayer ()
+Player& State_Base :: getPlayer ()
 {
     return m_game.getPlayer();
 }
 
 
 
-const Input_Movement_Keys&
-State_Base :: getInputKeyMovement () const
+const Input_Movement_Keys& State_Base :: getInputKeyMovement () const
 {
     return m_movementInputKeys;
 }
 
-void
-State_Base :: drawInputs ()
+void State_Base :: drawInputs ()
 {
     Console::clear();
     std::cout << "Up:    " << m_movementInputKeys.moveUp    << std::endl;
@@ -51,8 +47,7 @@ State_Base :: drawInputs ()
     std::cout << "Right: " << m_movementInputKeys.moveRight << std::endl;
 }
 
-void
-State_Base :: changeInputKeys ()
+void State_Base :: changeInputKeys ()
 {
     Console::setTextColour( Console::Foreground_Colour::WHITE );
     std::string question = "What do you want the input for ";

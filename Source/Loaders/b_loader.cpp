@@ -2,15 +2,13 @@
 
 #include <stdexcept>
 
-void
-Loader_Base :: addKeyword ( std::function<void(void)> function, const std::string& keyword)
+void Loader_Base :: addKeyword ( std::function<void(void)> function, const std::string& keyword)
 {
     m_keywords[keyword] = function;
 }
 
 //Fully reads the file, using the functions and keyword pairs passed in from a derived class
-void
-Loader_Base :: readFile ( const std::string& fileType )
+void Loader_Base :: readFile ( const std::string& fileType )
 {
     prepareForLoad();
     openFile( fileType, getFileName() );
@@ -25,8 +23,7 @@ Loader_Base :: readFile ( const std::string& fileType )
 
 //Goes through the function/ keyword list and calls a function if the keyword matches the read line
 //If it does not, it means an unrecognised word is found, of which needs to be dealt with
-void
-Loader_Base :: checkLineForKeyword ()
+void Loader_Base :: checkLineForKeyword ()
 {
     for ( auto& keyword : m_keywords )
     {
@@ -40,40 +37,34 @@ Loader_Base :: checkLineForKeyword ()
 }
 
 
-const std::string&
-Loader_Base :: getCurrentLineString () const
+const std::string& Loader_Base :: getCurrentLineString () const
 {
     return m_line;
 }
 
 //Bunch of reader functions for the derived classes
-bool
-Loader_Base :: readLine ()
+bool Loader_Base :: readLine ()
 {
     return std::getline( m_inFile, m_line );
 }
 
-void
-Loader_Base :: readNumber ( int& number )
+void Loader_Base :: readNumber ( int& number )
 {
     m_inFile >> number;
 }
 
-void
-Loader_Base :: readVector2i ( Vector2i& vector )
+void Loader_Base :: readVector2i ( Vector2i& vector )
 {
     m_inFile >> vector.x >> vector.y;
 }
 
-bool
-Loader_Base :: checkForWord ( const std::string& wordToCheckFor ) const
+bool Loader_Base :: checkForWord ( const std::string& wordToCheckFor ) const
 {
     return m_line.find ( wordToCheckFor ) != std::string::npos;
 }
 
 
-void
-Loader_Base :: throwUnrecognisedWord   () const
+void Loader_Base :: throwUnrecognisedWord   () const
 {
     if ( m_line == "") return;
     throw std::runtime_error ( "\tFound unknown word: " +
@@ -83,8 +74,7 @@ Loader_Base :: throwUnrecognisedWord   () const
 }
 
 //Each section of the files is marked by a END, and this checks for that
-bool
-Loader_Base :: endOfSection ()
+bool Loader_Base :: endOfSection ()
 {
     readLine();
     return checkForWord( "END" );
@@ -92,8 +82,7 @@ Loader_Base :: endOfSection ()
 
 
 
-void
-Loader_Base :: openFile ( const std::string& type, const std::string& path )
+void Loader_Base :: openFile ( const std::string& type, const std::string& path )
 {
     m_inFile.open ( path );
 
@@ -106,8 +95,7 @@ Loader_Base :: openFile ( const std::string& type, const std::string& path )
 
 
 //: ^ )
-void
-Loader_Base :: prepareForLoad ()
+void Loader_Base :: prepareForLoad ()
 {
     m_inFile.clear();
     m_line.clear();

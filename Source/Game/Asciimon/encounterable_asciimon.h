@@ -6,11 +6,9 @@ class Encounterable_ASCIImon
     public:
         Encounterable_ASCIImon ( const int id, const int weight );
 
-        int
-        getId       () const;
+        int getId       () const;
 
-        int
-        getWeight   () const;
+        int getWeight   () const;
 
     private:
         const int m_id;

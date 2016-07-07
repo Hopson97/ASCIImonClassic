@@ -11,20 +11,16 @@ class Clock
     Time_Point m_currentTime;
 
     public:
-        Clock();
+        Clock                       ();
 
-        double
-        getCurrentTime          () const;
+        double getCurrentTime       () const;
 
-        double
-        restart                 ();
+        double restart              ();
 
     private:
-        Time_Point
-        getChronoTime           () const;
+        Time_Point getChronoTime    () const;
 
-        double
-        timeToSeconds           ( const Time_Point& otherTime ) const;
+        double timeToSeconds        ( const Time_Point& otherTime ) const;
 };
 
 #endif // CLOCK_H

@@ -26,34 +26,26 @@ class State_Base
     Input_Movement_Keys     m_movementInputKeys;
 
     public:
-        State_Base          ( Game_Main& game);
-        virtual ~State_Base ()   {}
+        State_Base              ( Game_Main& game);
+        virtual ~State_Base     ()   {}
 
-        virtual void
-        input               () = 0;
+        virtual void input      () = 0;
 
-        virtual void
-        update              () = 0;
+        virtual void update     () = 0;
 
-        virtual void
-        draw                () = 0;
+        virtual void draw       () = 0;
 
-        void
-        drawInputs          ();
+        void drawInputs         ();
 
-        void
-        changeInputKeys     ();
+        void changeInputKeys    ();
 
     protected:
 
-        Game_Main&
-        getGame             ();
+        Game_Main& getGame      ();
 
-        Player&
-        getPlayer           ();
+        Player& getPlayer       ();
 
-        const Input_Movement_Keys&
-        getInputKeyMovement    () const;
+        const Input_Movement_Keys& getInputKeyMovement    () const;
 };
 
 }

@@ -6,15 +6,13 @@
 namespace Convert
 {
     template<typename T>
-    short unsigned
-    shortUnsigned ( const T num )
+    short unsigned shortUnsigned ( const T num )
     {
         return static_cast < short unsigned > ( num );
     }
 
     template<typename T>
-    std::string
-    toString ( const T num )
+    std::string toString ( const T num )
     {
         std::ostringstream stream;
         stream << num;
@@ -22,8 +20,7 @@ namespace Convert
     }
 
     template<typename T>
-    T
-    toNumber ( const std::string& str )
+    T toNumber ( const std::string& str )
     {
         int num = 0;
         std::istringstream stream ( str );

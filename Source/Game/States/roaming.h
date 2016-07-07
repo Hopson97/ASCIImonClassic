@@ -1,13 +1,13 @@
 #ifndef ROAMING_H
 #define ROAMING_H
 
-#include "game.h"
-#include "States/b_state.h"
+#include "../game.h"
+#include "b_state.h"
 
-#include "Maths/vector2.h"
+#include "../Maths/vector2.h"
 
-#include "map.h"
-#include "map_loader.h"
+#include "../Map/map.h"
+#include "../../Loaders/map_loader.h"
 
 namespace State
 {
@@ -22,56 +22,41 @@ class Roaming : public State_Base
     bool        isUpdateNeeded = true;
 
     public:
-        Roaming                         ( Game_Main& game, const Vector2i& mapLocation );
+        Roaming         ( Game_Main& game, const Vector2i& mapLocation );
 
-        void
-        input                           () override;
+        void input      () override;
 
-        void
-        update                          () override;
+        void update     () override;
 
-        void
-        draw                            () override;
+        void draw       () override;
 
     private:
-        void
-        testForEncounter                ();
+        void testForEncounter           ();
 
-        bool
-        testForEncounterTile            ();
+        bool testForEncounterTile       ();
 
-        void
-        startEncounter                  ( const int chance );
+        void startEncounter             ( const int chance );
 
-        int
-        getAsciimonIdToEncounter        ( const int chance );
+        int getAsciimonIdToEncounter    ( const int chance );
 
 
 
-        void
-        movePlayer                      ( const Vector2i& amount );
+        void movePlayer         ( const Vector2i& amount );
 
-        void
-        checkForBlock                   ();
+        void checkForBlock      ();
 
-        void
-        checkForWater                   ();
+        void checkForWater      ();
 
-        void
-        checkForMapMove                 ();
+        void checkForMapMove    ();
 
-        void
-        checkForPortal                  ();
+        void checkForPortal     ();
 
-        char
-        getTileAtPlayerNextLocation     ();
+        char getTileAtPlayerNextLocation    ();
 
-        char
-        getTileAtPlayerCurrLocation     ();
+        char getTileAtPlayerCurrLocation    ();
 
 
-        void
-        setPlayerPosAfterMapMove        ( const char tile );
+        void setPlayerPosAfterMapMove       ( const char tile );
 };
 
 }

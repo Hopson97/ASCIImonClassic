@@ -3,14 +3,11 @@
 
 namespace Keyboard
 {
-    char
-    getKey          ();
+    char getKey          ();
 
-    char
-    waitForKey      ();
+    char waitForKey      ();
 
-    void
-    waitForNoKey    ();
+    void waitForNoKey    ();
 }
 
 #endif // KEYBOARD_H_INCLUDED
