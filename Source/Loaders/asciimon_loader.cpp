@@ -33,24 +33,9 @@ void Asciimon_Loader :: load ( Asciimon* asciimon, unsigned id )
 
     if ( !Asciimon_Cache::idExists( id ) )
     {
-        addKeyword( std::bind ( &Asciimon_Loader::getType,          this ), typeSection );
-        addKeyword( std::bind ( &Asciimon_Loader::getImageFront,    this ), frontSection );
-        addKeyword( std::bind ( &Asciimon_Loader::getImageBack,     this ), backSection );
-        addKeyword( std::bind ( &Asciimon_Loader::getLvlUpMoves,    this ), lvlUpMoveSection );
-
-        addKeyword( m_cache.m_baseStats.attack,     Stat_Name_S::Abbreviated::attack );
-        addKeyword( m_cache.m_baseStats.spAttack,   Stat_Name_S::Abbreviated::spAttack );
-
-        addKeyword( m_cache.m_baseStats.defence,    Stat_Name_S::Abbreviated::defence );
-        addKeyword( m_cache.m_baseStats.spDefence,  Stat_Name_S::Abbreviated::spDefence );
-
-        addKeyword( m_cache.m_baseStats.hitpoints,  Stat_Name_S::Abbreviated::hitpoints );
-        addKeyword( m_cache.m_baseStats.speed,      Stat_Name_S::Abbreviated::speed );
-
-        addKeyword( &m_cache.m_name, nameSection );
+        bindKeywords();
 
         readFile( fileType );
-
         Asciimon_Cache::addAsciimonId( id, m_cache );
     }
     //Shorthand
@@ -59,12 +44,21 @@ void Asciimon_Loader :: load ( Asciimon* asciimon, unsigned id )
 
     Asciimon_Data& data = m_p_asciimon->m_stats;
 
-    data.stats.at( Stat_Name::Attack )          = Asciimon_Stat( cache.getBaseStats().attack );
-    data.stats.at( Stat_Name::Defence )         = Asciimon_Stat( cache.getBaseStats().defence );
-    data.stats.at( Stat_Name::Special_Attack )  = Asciimon_Stat( cache.getBaseStats().spAttack );
-    data.stats.at( Stat_Name::Special_Defence ) = Asciimon_Stat( cache.getBaseStats().spDefence );
-    data.stats.at( Stat_Name::Speed )           = Asciimon_Stat( cache.getBaseStats().speed );
-    data.stats.at( Stat_Name::Hit_Points )      = Asciimon_Stat( cache.getBaseStats().hitpoints );
+    setFinalStats();
+}
+
+void Asciimon_Loader :: setFinalStats  ()
+{
+    //Shorthand
+    auto& cache = Asciimon_Cache::getAsciimon( m_idToLoad );
+    auto& data = m_p_asciimon->m_stats;
+
+    data.m_stats.at( Stat_Name::Attack )          = Asciimon_Stat( cache.getBaseStats().attack );
+    data.m_stats.at( Stat_Name::Defence )         = Asciimon_Stat( cache.getBaseStats().defence );
+    data.m_stats.at( Stat_Name::Special_Attack )  = Asciimon_Stat( cache.getBaseStats().spAttack );
+    data.m_stats.at( Stat_Name::Special_Defence ) = Asciimon_Stat( cache.getBaseStats().spDefence );
+    data.m_stats.at( Stat_Name::Speed )           = Asciimon_Stat( cache.getBaseStats().speed );
+    data.m_stats.at( Stat_Name::Hit_Points )      = Asciimon_Stat( cache.getBaseStats().hitpoints );
 }
 
 
@@ -133,4 +127,24 @@ void Asciimon_Loader :: getLvlUpMoves ()
         }
 
     }
+}
+
+void Asciimon_Loader :: bindKeywords()
+{
+    addKeyword( std::bind ( &Asciimon_Loader::getType,          this ), typeSection );
+    addKeyword( std::bind ( &Asciimon_Loader::getImageFront,    this ), frontSection );
+    addKeyword( std::bind ( &Asciimon_Loader::getImageBack,     this ), backSection );
+    addKeyword( std::bind ( &Asciimon_Loader::getLvlUpMoves,    this ), lvlUpMoveSection );
+
+    //Stats
+    addKeyword( m_cache.m_baseStats.attack,       m_cache.m_baseIncreases.attack,       Stat_Name_S::Abbreviated::attack );
+    addKeyword( m_cache.m_baseStats.spAttack,     m_cache.m_baseIncreases.spAttack,     Stat_Name_S::Abbreviated::spAttack );
+
+    addKeyword( m_cache.m_baseStats.defence,      m_cache.m_baseIncreases.defence,      Stat_Name_S::Abbreviated::defence );
+    addKeyword( m_cache.m_baseStats.spDefence,    m_cache.m_baseIncreases.spDefence,    Stat_Name_S::Abbreviated::spDefence );
+
+    addKeyword( m_cache.m_baseStats.hitpoints,    m_cache.m_baseIncreases.hitpoints,    Stat_Name_S::Abbreviated::hitpoints );
+    addKeyword( m_cache.m_baseStats.speed,        m_cache.m_baseIncreases.speed,        Stat_Name_S::Abbreviated::speed );
+
+    addKeyword( &m_cache.m_name, nameSection );
 }

@@ -27,6 +27,18 @@ class Asciimon_Cache
         unsigned speed;
     } m_baseStats;
 
+    struct Base_Increases
+    {
+        unsigned attack;
+        unsigned spAttack;
+
+        unsigned defence;
+        unsigned spDefence;
+
+        unsigned hitpoints;
+        unsigned speed;
+    } m_baseIncreases;
+
     public:
         static bool idExists                ( unsigned id );
         static void addAsciimonId           ( unsigned id, Asciimon_Cache& cache );
@@ -37,6 +49,8 @@ class Asciimon_Cache
 
         const Image& getFrontImage  () const;
         const Image& getBackImage   () const;
+
+        const Base_Increases& getBaseIncreases () const;
 
         const Base_Stats&  getBaseStats () const;
         const std::string& getName      () const;

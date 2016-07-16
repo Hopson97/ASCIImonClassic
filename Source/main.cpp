@@ -26,6 +26,8 @@ int main()
 {
     srand(time(NULL));
 
+    setupConsole();
+
     Image image( "logo" );
     image.draw();
 
@@ -36,8 +38,6 @@ int main()
     music.setVolume ( 10 );
     music.play();
 
-    setupConsole();
-
     Game_Main game;
     game.runLoop();
 
@@ -47,8 +47,8 @@ int main()
 void setupConsole()
 {
     #ifdef __WIN32
-        constexpr short consoleWidth = 500;
-        constexpr short consoleHeight = 700;
+        constexpr short consoleWidth = 600;
+        constexpr short consoleHeight = 800;
 
         HWND console = GetConsoleWindow();
         MoveWindow(console, 0, 0, consoleWidth, consoleHeight, TRUE);

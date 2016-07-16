@@ -8,6 +8,14 @@ namespace General
 {
     bool lineContains   ( const std::string& line, const std::string checkFor );
     void openFile       ( const std::string& fileName, std::ifstream& inFile );
+
+    bool isStringNumrical   ( const std::string& str );
+
+    template<typename T>
+    bool numberBetween  ( T min, T max, T num )
+    {
+        return num >= min && num <= max;
+    }
 }
 
 

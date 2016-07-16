@@ -19,6 +19,8 @@ namespace Console
 
     void printTenBlankLines  ();
 
+    void printInvalidInput   ();
+
 }
 
 

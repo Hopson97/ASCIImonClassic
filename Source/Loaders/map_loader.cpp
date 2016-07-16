@@ -21,14 +21,7 @@ unsigned portalsRead = 0;
 
 Map_Loader :: Map_Loader ()
 {
-    addKeyword( std::bind ( &Map_Loader::readName,                  this ), nameSection );
-    addKeyword( std::bind ( &Map_Loader::readMapChars,              this ), mapSection );
-    addKeyword( std::bind ( &Map_Loader::readPortal,                this ), portalSection );
-    addKeyword( std::bind ( &Map_Loader::readEncounterableAsciimon, this ), encrAsciimonSection );
-
-    //addKeyword( &m_p_map->m_currentAreaName, nameSection );
-    //std::cout << m_p_map->m_currentAreaName << std::endl;
-    //Game::pressEnterToContinue();
+    bindKeywords();
 }
 
 void Map_Loader :: load ( Map* p_map )
@@ -146,6 +139,14 @@ const std::string Map_Loader :: getFileName () const
     return  mapLocation +
             Convert::toString( location.x ) + " " +
             Convert::toString( location.y ) + ".map";
+}
+
+void Map_Loader :: bindKeywords()
+{
+    addKeyword( std::bind ( &Map_Loader::readName,                  this ), nameSection );
+    addKeyword( std::bind ( &Map_Loader::readMapChars,              this ), mapSection );
+    addKeyword( std::bind ( &Map_Loader::readPortal,                this ), portalSection );
+    addKeyword( std::bind ( &Map_Loader::readEncounterableAsciimon, this ), encrAsciimonSection );
 }
 
 

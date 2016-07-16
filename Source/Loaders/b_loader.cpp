@@ -23,6 +23,15 @@ void Loader_Base :: addKeyword ( std::string* data, const std::string& keyword)
     m_keywordStrings[keyword] = data;
 }
 
+void Loader_Base :: addKeyword ( unsigned& n1, unsigned& n2,       const std::string& keyword)
+{
+    Multi_Key_Section data;
+    data.a = &n1;
+    data.b = &n2;
+
+    m_multiKeywords[keyword] = data;
+}
+
 
 
 //Fully reads the file, using the functions and keyword pairs passed in from a derived class
@@ -80,6 +89,16 @@ void Loader_Base :: checkLineForKeyword ()
         if ( checkForWord( keyword.first ) )
         {
             readString( *keyword.second );
+            return;
+        }
+    }
+
+    for ( auto& keyword : m_multiKeywords )
+    {
+        if ( checkForWord( keyword.first ) )
+        {
+            readNumber( *keyword.second.a );
+            readNumber( *keyword.second.b );
             return;
         }
     }

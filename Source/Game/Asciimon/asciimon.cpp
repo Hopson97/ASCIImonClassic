@@ -7,6 +7,16 @@
 #include "move_loader.h"
 #include "random_functions.h"
 
+const Asciimon_Data& Asciimon :: getStats () const
+{
+    return m_stats;
+}
+
+const Asciimon_Stat Asciimon :: getStat ( Stat_Name name ) const
+{
+    return m_stats.getStats().at( name );
+}
+
 void Asciimon :: setLevel( unsigned level)
 {
     m_level.setLevel ( level );
@@ -25,9 +35,9 @@ void Asciimon :: setLevel( unsigned level)
 }
 
 
-const unsigned Asciimon :: getLevel() const
+const Level& Asciimon :: getLevel() const
 {
-    return m_level.getLevel();
+    return m_level;
 }
 
 
@@ -55,27 +65,27 @@ const Image& Asciimon :: getBackImage() const
 }
 
 
-void Asciimon :: printStats ()
+void Asciimon :: printStats () const
 {
     std::cout << Stat_Name_S::Full::hitpoints;
-    m_stats.stats.at( Stat_Name::Hit_Points ).print();
+    m_stats.getStats().at( Stat_Name::Hit_Points ).print();
 
     std::cout << Stat_Name_S::Full::attack;
-    m_stats.stats.at( Stat_Name::Attack ).print();
+    m_stats.getStats().at( Stat_Name::Attack ).print();
 
     std::cout << Stat_Name_S::Full::defence;
-    m_stats.stats.at( Stat_Name::Defence ).print();
+    m_stats.getStats().at( Stat_Name::Defence ).print();
 
 
     std::cout << Stat_Name_S::Full::spAttack;
-    m_stats.stats.at( Stat_Name::Special_Attack ).print();
+    m_stats.getStats().at( Stat_Name::Special_Attack ).print();
 
     std::cout << Stat_Name_S::Full::spDefence;
-    m_stats.stats.at( Stat_Name::Special_Defence ).print();
+    m_stats.getStats().at( Stat_Name::Special_Defence ).print();
 
 
     std::cout << Stat_Name_S::Full::speed;
-    m_stats.stats.at( Stat_Name::Speed ).print();
+    m_stats.getStats().at( Stat_Name::Speed ).print();
 }
 
 const std::string& Asciimon :: getName () const
@@ -89,4 +99,10 @@ void Asciimon :: addMove ( const std::string& name )
     Asciimon_Move realMove;
     loader.load( &realMove, name );
     m_moves.push_back( realMove );
+}
+
+const std::vector<Asciimon_Move>&
+Asciimon :: getMoves () const
+{
+    return m_moves;
 }

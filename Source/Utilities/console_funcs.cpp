@@ -62,8 +62,17 @@ void printTenBlankLines  ()
 {
     for ( unsigned i = 0 ; i < 10 ; i++ )
     {
-        std::cout << std::endl;
+        newLine();
     }
+}
+
+void printInvalidInput   ()
+{
+    setTextColour( Foreground_Colour::RED );
+    std::cout << "INVALID INPUT " << std::endl;
+    Console::newLine();
+    resetColours();
+
 }
 
 

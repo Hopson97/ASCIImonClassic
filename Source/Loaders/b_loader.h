@@ -18,10 +18,18 @@ class Loader_Base
     std::map < std::string, unsigned* > m_keywordUnsigned;
     std::map < std::string, std::string* > m_keywordStrings;
 
+    struct Multi_Key_Section
+    {
+        unsigned* a;
+        unsigned* b;
+    };
+    std::map < std::string, Multi_Key_Section > m_multiKeywords;
+
     std::string     m_line;
     std::ifstream   m_inFile;
 
     protected:
+        virtual void bindKeywords               () = 0;
         virtual void checkLineForKeyword        ();
 
         virtual const std::string getFileName   () const = 0;
@@ -30,6 +38,7 @@ class Loader_Base
         void addKeyword                         ( int& num,                     const std::string& keyword);
         void addKeyword                         ( unsigned& num,                const std::string& keyword);
         void addKeyword                         ( std::string* data,            const std::string& keyword);
+        void addKeyword                         ( unsigned& n1, unsigned& n2,   const std::string& keyword);
 
         void readFile                           ( const std::string& fileType );
 

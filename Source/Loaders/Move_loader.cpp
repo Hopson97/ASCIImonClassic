@@ -19,11 +19,7 @@ void Move_Loader :: load ( Asciimon_Move* move, const std::string& name )
     {
         m_cache.m_info.name = name;
 
-        addKeyword( m_cache.m_info.power,           "POWER" );
-        addKeyword( m_cache.m_info.maxPowerPoints,  "PP"    );
-        addKeyword( m_cache.m_info.isSpecial,       "SP"    );
-
-        addKeyword( std::bind ( &Move_Loader::getType, this), "TYPE" );
+        bindKeywords();
 
         readFile( "Move file (.move) " );
 
@@ -39,4 +35,13 @@ void Move_Loader :: getType ()
 
     Loader_Base::readNumber( n );
     m_cache.m_info.m_type = static_cast<Asciimon_Type>( n );
+}
+
+void Move_Loader :: bindKeywords()
+{
+    addKeyword( m_cache.m_info.power,           "POWER" );
+    addKeyword( m_cache.m_info.maxPowerPoints,  "PP"    );
+    addKeyword( m_cache.m_info.isSpecial,       "SP"    );
+
+    addKeyword( std::bind ( &Move_Loader::getType, this), "TYPE" );
 }

@@ -18,7 +18,10 @@ class Asciimon_Loader : public Loader_Base
 
         void getLvlUpMoves  ();
 
-    private:
+        void setFinalStats  ();
+
+        void bindKeywords   () override;
+
         const std::string getFileName   () const override;
 
         Asciimon*       m_p_asciimon = nullptr;

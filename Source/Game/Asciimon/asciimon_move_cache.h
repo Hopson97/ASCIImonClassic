@@ -9,17 +9,17 @@ class Asciimon_Move_Cache
 {
     friend class Move_Loader;
 
-    struct Info
-    {
-        std::string name;
-        unsigned    power;
-        unsigned    maxPowerPoints;
-        unsigned    isSpecial;
-
-        Asciimon_Type   m_type;
-    } m_info;
-
     public:
+        struct Info
+        {
+            std::string name;
+            unsigned    power;
+            unsigned    maxPowerPoints;
+            unsigned    isSpecial;
+
+            Asciimon_Type   m_type;
+        };
+
         static bool moveExists              ( const std::string& name );
         static void addMove                 ( const std::string& name, const Asciimon_Move_Cache& cache );
         static Asciimon_Move_Cache& getMove ( const std::string& name );
@@ -27,6 +27,7 @@ class Asciimon_Move_Cache
         const Info& getInfo () const;
 
     private:
+        Info m_info;
 };
 
 #endif // ASCIIMON_MOVE_CACHE_H

@@ -52,7 +52,13 @@ const Image& Asciimon_Cache :: getBackImage() const
 }
 
 
-const Asciimon_Cache::Base_Stats& Asciimon_Cache::getBaseStats() const
+const Asciimon_Cache::Base_Increases& Asciimon_Cache :: getBaseIncreases () const
+{
+    return m_baseIncreases;
+}
+
+
+const Asciimon_Cache::Base_Stats& Asciimon_Cache :: getBaseStats() const
 {
     return m_baseStats;
 }

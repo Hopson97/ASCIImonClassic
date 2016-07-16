@@ -19,6 +19,8 @@ class Map_Loader : private Loader_Base
         void countPortalsOnLine     ();
         void readPortal             ();
 
+        void bindKeywords           () override;
+
         void readEncounterableAsciimon  ();
         const std::string getFileName   () const override;
 

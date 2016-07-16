@@ -14,7 +14,9 @@ class Move_Loader : public Loader_Base
     private:
         const std::string getFileName () const override;
 
-        void getType ();
+        void getType        ();
+
+        void bindKeywords   () override;
 
         Asciimon_Move_Cache m_cache;
         Asciimon_Move*      m_p_move;

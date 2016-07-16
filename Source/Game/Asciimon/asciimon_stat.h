@@ -9,9 +9,12 @@ class Asciimon_Stat
         Asciimon_Stat () = default;
         Asciimon_Stat ( unsigned level );
 
-        void levelUp    ( double levelUpMultiplier );
+        void levelUp    ( double levelUpMultiplier, unsigned baseIncrease );
 
-        void print      ();
+        void print      () const;
+
+        unsigned getMaxValue () const;
+        unsigned getCurrValue () const;
 
     private:
         unsigned m_maxValue;

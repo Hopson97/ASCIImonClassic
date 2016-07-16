@@ -16,17 +16,23 @@ class Asciimon
     public:
         Asciimon() = default;
 
+        const Asciimon_Data& getStats () const;
+
+        const Asciimon_Stat getStat   ( Stat_Name name ) const;
+
         void drawFront  () const;
         void drawBack   () const;
         const Image& getFrontImage  () const;
         const Image& getBackImage   () const;
 
-        void printStats ();
+        void printStats () const;
 
         void setLevel   ( unsigned level );
-        const unsigned getLevel     () const;
+        const Level& getLevel   () const;
 
-        const std::string& getName  () const;
+        const std::string& getName          () const;
+
+        const std::vector<Asciimon_Move>& getMoves () const;
 
     private:
         void addMove ( const std::string& name );

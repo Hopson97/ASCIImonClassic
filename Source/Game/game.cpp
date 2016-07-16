@@ -11,6 +11,7 @@ Game_Main :: Game_Main ()
     //m_states.pushState( new State::New_Game ( *this ) );
 }
 
+
 void Game_Main :: runLoop ()
 {
     Clock m_clock;
@@ -37,30 +38,37 @@ void Game_Main :: runLoop ()
     }
 }
 
+
 State::Handler& Game_Main :: getStates ()
 {
+    m_isRedrawNeeded = true;//Chances are, if the states are being got then the states are about to change
     return m_states;
 }
+
 
 Player& Game_Main :: getPlayer ()
 {
     return m_player;
 }
 
+
 void Game_Main :: stopRunning ()
 {
     m_isRunning = false;
 }
+
 
 void Game_Main :: save ()
 {
 
 }
 
+
 void Game_Main :: setRedrawNeeded()
 {
     m_isRedrawNeeded = true;
 }
+
 
 bool Game_Main :: saveIfClosed ()
 {

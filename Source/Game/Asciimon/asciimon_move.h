@@ -9,6 +9,7 @@ class Asciimon_Move
 
     public:
         void reset ();
+        const Asciimon_Move_Cache::Info&  getInfo () const;
 
 
         static constexpr int MAX_MOVES = 4;
