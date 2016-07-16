@@ -5,9 +5,12 @@ MAP
 ##n#
 END
 
+NAME
+Room Test
+
 PORTAL
 GOES TO
 0 0
 PLAYER STANDS
-6 27
+6 15
 END

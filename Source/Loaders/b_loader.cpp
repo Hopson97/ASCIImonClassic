@@ -1,11 +1,29 @@
 #include "b_loader.h"
 
 #include <stdexcept>
+#include <iostream>
 
 void Loader_Base :: addKeyword ( std::function<void(void)> function, const std::string& keyword)
 {
     m_keywords[keyword] = function;
 }
+
+void Loader_Base :: addKeyword(int& num, const std::string& keyword)
+{
+    m_keywordNums[keyword] = &num;
+}
+
+void Loader_Base :: addKeyword(unsigned& num, const std::string& keyword)
+{
+    m_keywordUnsigned[keyword] = &num;
+}
+
+void Loader_Base :: addKeyword ( std::string* data, const std::string& keyword)
+{
+    m_keywordStrings[keyword] = data;
+}
+
+
 
 //Fully reads the file, using the functions and keyword pairs passed in from a derived class
 void Loader_Base :: readFile ( const std::string& fileType )
@@ -16,9 +34,11 @@ void Loader_Base :: readFile ( const std::string& fileType )
     while ( readLine() )
     {
         if ( checkForWord( "//" ) ) continue;
+        if ( checkForWord( "HARDEND") ) break;
         checkLineForKeyword();
     }
     m_inFile.close();
+
 }
 
 //Goes through the function/ keyword list and calls a function if the keyword matches the read line
@@ -29,7 +49,37 @@ void Loader_Base :: checkLineForKeyword ()
     {
         if ( checkForWord( keyword.first ) )
         {
-            keyword.second();
+            keyword.second();   //keyword.second is an std::function
+            return;
+        }
+    }
+
+//    checkMap( m_keywordNums, std::bind( &Loader_Base::readNumber, this) );
+
+    for ( auto& keyword : m_keywordNums )
+    {
+        if ( checkForWord( keyword.first ) )
+        {
+            readNumber( *keyword.second );
+            return;
+        }
+    }
+    for ( auto& keyword : m_keywordUnsigned )
+    {
+        if ( checkForWord( keyword.first ) )
+        {
+            readNumber( *keyword.second );
+            return;
+        }
+    }
+
+//    checkMap( m_keywordStrings, std::bind( &Loader_Base::readString, this) );
+
+    for ( auto& keyword : m_keywordStrings )
+    {
+        if ( checkForWord( keyword.first ) )
+        {
+            readString( *keyword.second );
             return;
         }
     }
@@ -42,25 +92,49 @@ const std::string& Loader_Base :: getCurrentLineString () const
     return m_line;
 }
 
+
 //Bunch of reader functions for the derived classes
 bool Loader_Base :: readLine ()
 {
     return std::getline( m_inFile, m_line );
 }
 
-void Loader_Base :: readNumber ( int& number )
-{
-    m_inFile >> number;
-}
 
 void Loader_Base :: readVector2i ( Vector2i& vector )
 {
     m_inFile >> vector.x >> vector.y;
 }
 
+
+void Loader_Base :: readImage( Image& image )
+{
+    image.loadFromStream( m_inFile );
+}
+
+
+void Loader_Base :: readNumber ( int& number )
+{
+    m_inFile >> number;
+}
+
+
+void Loader_Base :: readNumber ( unsigned& number )
+{
+    m_inFile >> number;
+}
+
+
+void Loader_Base :: readString ( std::string& data )
+{
+    readLine();
+    data = m_line;
+}
+
+
 bool Loader_Base :: checkForWord ( const std::string& wordToCheckFor ) const
 {
-    return m_line.find ( wordToCheckFor ) != std::string::npos;
+    //return m_line.find ( wordToCheckFor ) != std::string::npos;
+    return m_line == wordToCheckFor;
 }
 
 

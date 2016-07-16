@@ -4,12 +4,12 @@
 template < typename T >
 struct Vector2
 {
-    int x = 0;
-    int y = 0;
+    T x = 0;
+    T y = 0;
 
     Vector2 () = default;
 
-    Vector2 ( const int x, const int y)
+    Vector2 ( const T x, const T y)
     :   x ( x )
     ,   y ( y )
     { }

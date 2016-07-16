@@ -3,7 +3,9 @@
 
 namespace Random
 {
-    int integer ( const int low, const int high);
+    int integer ( int low, int high);
+
+    double decimal ( double low, double high );
 }
 
 #endif // RANDOM_FUNCTIONS_H_INCLUDED

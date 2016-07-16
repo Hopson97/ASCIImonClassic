@@ -6,7 +6,7 @@
 #include "../../Utilities/console_funcs.h"
 #include "d_tiles.h"
 
-constexpr short areaVisible = 8;
+constexpr short areaVisible = 10;
 
 Map :: Map( const int x, const int y )
 :   m_location  ( x, y )
@@ -63,7 +63,7 @@ void Map :: setLocation ( const Vector2i& location )
 
 
 
-char Map :: at ( const int x, const int y) const
+char Map :: at ( const unsigned x, const unsigned y) const
 {
     return m_currentArea.at( ( y * m_size.x ) + x );
 }
@@ -103,9 +103,9 @@ const Portal& Map :: getPortalAt ( const Vector2i& location ) const
                               Convert::toString( location.y ) );
 }
 
-int Map :: getTotalAsciimonWeight  () const
+unsigned Map :: getTotalAsciimonWeight  () const
 {
-    int total = 0;
+    unsigned total = 0;
     for ( auto& asciimon : m_encounterableASCIImon )
     {
         total += asciimon.getWeight();

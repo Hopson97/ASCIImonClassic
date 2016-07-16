@@ -5,22 +5,43 @@
 
 #include "Utilities/windows_funcs.h"
 #include "Game/game.h"
+#include "game_funcs.h"
 
 #include <ctime>
+#include <stdexcept>
+
+#include <SFML/Audio.hpp>
+
+#include "animated_text.h"
 
 void
 setupConsole();
 
+void test()
+{
+    Game::pressEnterToContinue();
+}
+
 int main()
 {
     srand(time(NULL));
+
+    Image image( "logo" );
+    image.draw();
+
+    test();
+
+    sf::Music music;
+    if ( ! music.openFromFile( "Data/Music/Theme.ogg") ) throw std::runtime_error ( "Song not loaded" );
+    music.setVolume ( 10 );
+    music.play();
 
     setupConsole();
 
     Game_Main game;
     game.runLoop();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void setupConsole()

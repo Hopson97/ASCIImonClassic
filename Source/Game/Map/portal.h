@@ -5,10 +5,6 @@
 
 class Portal
 {
-    Vector2i m_goesTo;
-    Vector2i m_playerStands;
-    Vector2i m_location;
-
     public:
         Portal          ( const Vector2i& location );
 
@@ -20,6 +16,10 @@ class Portal
 
         const Vector2i& getLocation     () const;
 
+    private:
+        Vector2i m_goesTo;
+        Vector2i m_playerStands;
+        Vector2i m_location;
 };
 
 #endif // PORTAL_H

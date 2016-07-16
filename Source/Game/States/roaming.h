@@ -14,13 +14,6 @@ namespace State
 
 class Roaming : public State_Base
 {
-    Map m_map;
-    Map_Loader  m_mapLoader;
-
-    Vector2i    m_nextMove;
-
-    bool        isUpdateNeeded = true;
-
     public:
         Roaming         ( Game_Main& game, const Vector2i& mapLocation );
 
@@ -31,13 +24,13 @@ class Roaming : public State_Base
         void draw       () override;
 
     private:
-        void testForEncounter           ();
+        void testForWildEncounter           ();
 
-        bool testForEncounterTile       ();
+        bool testForWildEncounterTile       ();
 
-        void startEncounter             ( const int chance );
+        void startWildEncounter             ( unsigned chance );
 
-        int getAsciimonIdToEncounter    ( const int chance );
+        unsigned getWildAsciimonIdToEncounter    ( unsigned chance, unsigned& level );
 
 
 
@@ -57,6 +50,13 @@ class Roaming : public State_Base
 
 
         void setPlayerPosAfterMapMove       ( const char tile );
+
+        Map m_map;
+        Map_Loader  m_mapLoader;
+
+        Vector2i    m_nextMove;
+
+        bool        isUpdateNeeded = true;
 };
 
 }

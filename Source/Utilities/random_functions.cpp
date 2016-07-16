@@ -6,7 +6,7 @@
 namespace Random
 {
 
-int integer ( const int low, const int high )
+int integer ( int low, int high )
 {
     return rand() % (high - low + 1) + low;
 }

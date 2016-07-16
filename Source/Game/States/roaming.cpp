@@ -63,7 +63,7 @@ void Roaming :: update ()
 
         movePlayer( m_nextMove );
 
-        testForEncounter();
+        testForWildEncounter();
     }
 }
 
@@ -78,95 +78,6 @@ void Roaming :: draw ()
 
     isUpdateNeeded = false;
 }
-
-//Encounter code begins by testing if an encounter will happen
-//And then it tests for which ASCIImon to attack
-//And then changes the game state
-void Roaming :: testForEncounter ()
-{
-    if ( !testForEncounterTile() ) return;
-
-    constexpr static int annoyenceReductionMultiplier = 7;  //Lessens the chance of an encounter by increasing
-                                                            //the "chance bounds" thus reducing the "asciimon bounds"
-    int total = m_map.getTotalAsciimonWeight();
-    int chance = Random::integer( 0, total * annoyenceReductionMultiplier );
-
-    if ( chance > total - 1 ) return;
-    else
-        startEncounter( chance );
-}
-
-//Checks if the tile being stood on is a tile that has potential to have an encounter eg long grass
-bool Roaming :: testForEncounterTile ()
-{
-    for ( auto& tile : Tiles::encounterTiles )
-    {
-        if ( tile == getTileAtPlayerCurrLocation() )
-            return true;
-    }
-    return false;
-}
-
-
-#define FAILURE -1
-
-void Roaming :: startEncounter ( const int chance )
-{
-
-    int id = getAsciimonIdToEncounter( chance );
-
-    if ( id == FAILURE ) return;
-}
-
-
-/*  Gets the ASCIImon ID of the ASCIImon to encounter, which takes two steps:
-
-    Step One:
-        We need to get the bounds of the map's encounterable ASCIImons' weights, and create
-        a lower/ upper bound structure.
-        Eg, if three have weights 4, 5, and 8, then the structure will be
-        0 3
-        4 4
-        5 7
-        With the "chance" somewhere between those bounds, and each bound has an attached id with it
-        as seen in the struct above.
-
-    Step Two:
-        The bounds are simply checked against the bounds until the correct ASCIImon is found
-*/
-int Roaming :: getAsciimonIdToEncounter ( const int chance )
-{
-    struct Potential_ASCIImon
-    {
-        int lowerBound;
-        int upperBound;
-        int id;
-    };
-    std::vector<Potential_ASCIImon> potentialAsciimon;
-
-    //Step One:
-    int total = 0;
-    for ( auto& asciimon : m_map.getEncounterableAsciimon() )
-    {
-        potentialAsciimon.push_back( {  total,
-                                        total + asciimon.getWeight() - 1,
-                                        asciimon.getId() } );
-        total += asciimon.getWeight();
-    }
-
-    //Step Two:
-    for ( auto& asciimon : potentialAsciimon )
-    {
-        if ( asciimon.lowerBound <= chance &&
-            asciimon.upperBound >= chance )
-        {
-            return asciimon.id;
-        }
-    }
-    return FAILURE; //If this messes up somehow, then it returns an error number.
-}
-
-#undef FAILURE
 
 
 //Moves the player in the field
@@ -232,7 +143,6 @@ void Roaming :: checkForPortal ()
             const Portal& portal = m_map.
                                     getPortalAt( getPlayer().getFieldLocation()
                                                  + m_nextMove );
-
             m_map.setLocation( portal.getGoesTo() );
             getPlayer().setFieldPosition( portal.getPlayerStands() );
             m_nextMove.reset();
@@ -265,11 +175,11 @@ void Roaming :: setPlayerPosAfterMapMove ( const char tile )
 
     if ( tile == '>' )
     {
-        getPlayer().setFieldPosition( { 2, playerPosition.y } );
+        getPlayer().setFieldPosition( { 0, playerPosition.y } );
     }
     else if ( tile == '<' )
     {
-        getPlayer().setFieldPosition( { m_map.getSize().x - 2, playerPosition.y } );
+        getPlayer().setFieldPosition( { m_map.getSize().x - 1, playerPosition.y } );
     }
     else if ( tile == 'v' )
     {

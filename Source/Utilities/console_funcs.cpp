@@ -60,7 +60,7 @@ void lineStartSpace ()
 
 void printTenBlankLines  ()
 {
-    for ( int i = 0 ; i < 10 ; i++ )
+    for ( unsigned i = 0 ; i < 10 ; i++ )
     {
         std::cout << std::endl;
     }

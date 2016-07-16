@@ -1,11 +1,13 @@
 #include "game.h"
 
 #include "States/roaming.h"
+#include "States/new_game.h"
 #include "../Utilities/clock.h"
 
 Game_Main :: Game_Main ()
 {
     m_states.pushState( new State::Roaming( *this, {0, 0 } ) );
+    //m_states.pushState( new State::New_Game ( *this ) );
 }
 
 void Game_Main :: runLoop ()
@@ -60,7 +62,6 @@ bool Game_Main :: saveIfClosed ()
     if ( !m_isRunning )
     {
         save();
-        return true;
     }
-    return false;
+    return !m_isRunning;
 }

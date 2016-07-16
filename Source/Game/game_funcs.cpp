@@ -5,6 +5,7 @@
 #include "../Utilities/clock.h"
 
 #include <iostream>
+#include <stdexcept>
 
 namespace Game
 {
@@ -24,6 +25,11 @@ void pressEnterToContinue ()
     std::cin.get();
 
     Console::newLine();
+}
+
+void printLine ( const std::string& line )
+{
+    std::cout << line << std::endl;
 }
 
 }
