@@ -3,6 +3,7 @@
 #include "States/roaming.h"
 #include "States/new_game.h"
 #include "../Utilities/clock.h"
+#include "console_funcs.h"
 
 Game_Main :: Game_Main ()
 {
@@ -19,18 +20,17 @@ void Game_Main :: runLoop ()
     {
         m_states.peekState()->input ();
 
-        if ( saveIfClosed() )
-            break;
-
         m_states.peekState()->update();
 
-        if ( saveIfClosed() )
-            break;
 
-        m_states.peekState()->draw  ();
+        if ( m_isRedrawNeeded )
+        {
+            Console::clear();
+            m_states.peekState()->draw ();
+            m_isRedrawNeeded = false;
+        }
 
-        if ( saveIfClosed() )
-            break;
+
 
         while ( m_clock.getCurrentTime() < timeFrame );
         m_clock.restart();
@@ -55,6 +55,11 @@ void Game_Main :: stopRunning ()
 void Game_Main :: save ()
 {
 
+}
+
+void Game_Main :: setRedrawNeeded()
+{
+    m_isRedrawNeeded = true;
 }
 
 bool Game_Main :: saveIfClosed ()

@@ -10,6 +10,7 @@ Player :: Player()
     Asciimon a;
 
     loader.load( &a, 1 );
+    a.setLevel( 5 );
     m_asciimon.push_back( a );
 }
 

@@ -8,8 +8,10 @@ class Asciimon_Move
     friend class Move_Loader;
 
     public:
-        Asciimon_Move();
+        void reset ();
 
+
+        static constexpr int MAX_MOVES = 4;
     private:
         const Asciimon_Move_Cache* m_info;
 
@@ -18,7 +20,7 @@ class Asciimon_Move
 
 struct Level_Up_Move
 {
-    int level;
+    unsigned level;
     std::string name;
 };
 

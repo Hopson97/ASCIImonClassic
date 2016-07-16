@@ -55,8 +55,6 @@ class Roaming : public State_Base
         Map_Loader  m_mapLoader;
 
         Vector2i    m_nextMove;
-
-        bool        isUpdateNeeded = true;
 };
 
 }

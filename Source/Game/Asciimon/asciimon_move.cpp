@@ -1,6 +1,6 @@
 #include "asciimon_move.h"
 
-Asciimon_Move::Asciimon_Move()
+void Asciimon_Move :: reset ()
 {
-    //ctor
+    m_movesLeft = m_info->getInfo().maxPowerPoints;
 }

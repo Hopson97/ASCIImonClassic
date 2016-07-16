@@ -70,20 +70,14 @@ void Roaming :: update ()
 
 void Roaming :: draw ()
 {
-    if ( isUpdateNeeded )
-    {
-        Console::clear();
-        m_map.draw( getPlayer().getFieldLocation() );
-    }
-
-    isUpdateNeeded = false;
+    m_map.draw( getPlayer().getFieldLocation() );
 }
 
 
 //Moves the player in the field
 void Roaming :: movePlayer  ( const Vector2i& amount )
 {
-    isUpdateNeeded = true;
+    getGame().setRedrawNeeded();
     getPlayer().moveInField( amount );
 }
 

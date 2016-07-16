@@ -23,8 +23,12 @@ class Game_Main
 
         void save           ();
 
+        void setRedrawNeeded();
+
     private:
         bool saveIfClosed   ();
+
+        bool m_isRedrawNeeded;
 
 
 };

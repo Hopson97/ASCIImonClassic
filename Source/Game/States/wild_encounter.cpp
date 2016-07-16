@@ -35,6 +35,7 @@ void Wild_Encounter :: initEncounter()
     Console::clear();
     Animated_Text::quickText( "A wild " + m_asciimon.getName() + " has appeared!",
                               m_asciimon.getFrontImage() );
+    Encounter_Base::draw();
 }
 
 

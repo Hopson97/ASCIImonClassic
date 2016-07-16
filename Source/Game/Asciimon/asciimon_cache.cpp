@@ -66,3 +66,9 @@ void Asciimon_Cache :: addLevelUpMove ( const Level_Up_Move& move )
 {
     m_levelUpMoves.push_back( move );
 }
+
+const std::vector<Level_Up_Move>
+Asciimon_Cache :: getLevelUpMoves () const
+{
+    return m_levelUpMoves;
+}

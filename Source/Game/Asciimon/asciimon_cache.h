@@ -43,6 +43,8 @@ class Asciimon_Cache
 
         void addLevelUpMove ( const Level_Up_Move& move );
 
+        const std::vector<Level_Up_Move> getLevelUpMoves () const;
+
     private:
         Image m_frontImage;
         Image m_backImage;

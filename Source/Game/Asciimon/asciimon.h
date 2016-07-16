@@ -29,6 +29,8 @@ class Asciimon
         const std::string& getName  () const;
 
     private:
+        void addMove ( const std::string& name );
+
         Asciimon_Data   m_stats;
         Level           m_level;
 
