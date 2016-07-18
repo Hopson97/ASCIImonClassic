@@ -8,7 +8,10 @@ class Asciimon_Move
     friend class Move_Loader;
 
     public:
-        void reset ();
+        void use    ();
+        void reset  ();
+        void printStatus    () const;
+
         const Asciimon_Move_Cache::Info&  getInfo () const;
 
 

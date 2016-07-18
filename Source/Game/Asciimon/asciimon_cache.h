@@ -14,6 +14,13 @@
 class Asciimon_Cache
 {
     friend class Asciimon_Loader;
+    friend class Asciimon_Evolver;
+
+    struct Evolution
+    {
+        unsigned level  = 0;
+        unsigned intoId = 0;
+    } m_evolution;
 
     struct Base_Stats
     {
@@ -37,6 +44,8 @@ class Asciimon_Cache
 
         unsigned hitpoints;
         unsigned speed;
+
+        unsigned exp;
     } m_baseIncreases;
 
     public:
@@ -58,6 +67,10 @@ class Asciimon_Cache
         void addLevelUpMove ( const Level_Up_Move& move );
 
         const std::vector<Level_Up_Move> getLevelUpMoves () const;
+
+        const Evolution& getEvolution   () const;
+
+        Asciimon_Type getType           () const;
 
     private:
         Image m_frontImage;

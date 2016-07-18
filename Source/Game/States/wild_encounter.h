@@ -12,8 +12,14 @@ class Wild_Encounter : public Encounter_Base
         Wild_Encounter( Game_Main& game, unsigned enemyId, unsigned levelOfEnemy );
 
     private:
-        void loadEnemy( unsigned enemyId, unsigned levelOfEnemy );
-        void initEncounter() override;
+        void loadEnemy      ( unsigned enemyId, unsigned levelOfEnemy );
+        void initEncounter  () override;
+
+        void enemyTurn      () override;
+        void enemyFainted   () override;
+        void tryRun         () override;
+        void tryCatch       () override;
+
 
         Asciimon m_asciimon;
 

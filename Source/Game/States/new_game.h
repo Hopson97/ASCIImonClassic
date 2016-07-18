@@ -18,6 +18,15 @@ class New_Game : public State_Base
 
     private:
         void getName( std::string& name );
+
+        void printAsciimnStarters () const;
+        void invalid();
+
+        std::vector<Asciimon*> m_asciimon;
+
+        Asciimon grass;
+        Asciimon water;
+        Asciimon fire;
 };
 
 }

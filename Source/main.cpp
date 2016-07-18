@@ -13,6 +13,8 @@
 #include <SFML/Audio.hpp>
 
 #include "animated_text.h"
+#include "Music_Manager.h"
+#include "game_funcs.h"
 
 void
 setupConsole();
@@ -25,18 +27,13 @@ void test()
 int main()
 {
     srand(time(NULL));
-
     setupConsole();
+    Game::openLog();
 
     Image image( "logo" );
     image.draw();
 
     test();
-
-    sf::Music music;
-    if ( ! music.openFromFile( "Data/Music/Theme.ogg") ) throw std::runtime_error ( "Song not loaded" );
-    music.setVolume ( 10 );
-    music.play();
 
     Game_Main game;
     game.runLoop();
@@ -47,11 +44,11 @@ int main()
 void setupConsole()
 {
     #ifdef __WIN32
-        constexpr short consoleWidth = 600;
-        constexpr short consoleHeight = 800;
+        constexpr int consoleWidth = 800;
+        constexpr int consoleHeight = 1280;
 
         HWND console = GetConsoleWindow();
         MoveWindow(console, 0, 0, consoleWidth, consoleHeight, TRUE);
-        //MoveWindow(console, -1750, 0, consoleWidth, consoleHeight, TRUE);
+        MoveWindow(console, -1450, 50, consoleWidth, consoleHeight, TRUE);
     #endif // __WIN32
 }

@@ -19,6 +19,10 @@ class Asciimon_Data
 
         const std::map<Stat_Name, Asciimon_Stat>& getStats () const;
 
+        void deductStat ( Stat_Name name, unsigned amount );
+
+        void fullRestore ();
+
     private:
         std::map<Stat_Name, Asciimon_Stat> m_stats;
 };

@@ -27,6 +27,7 @@ void Move_Loader :: load ( Asciimon_Move* move, const std::string& name )
     }
 
     m_p_move->m_info = &Asciimon_Move_Cache::getMove( name );
+    m_p_move->reset();
 }
 
 void Move_Loader :: getType ()

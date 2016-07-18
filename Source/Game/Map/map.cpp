@@ -103,6 +103,22 @@ const Portal& Map :: getPortalAt ( const Vector2i& location ) const
                               Convert::toString( location.y ) );
 }
 
+Person& Map::getPersonAt(const Vector2i& location)
+{
+    for ( auto& person : m_people )
+    {
+        if ( person.getLocation() == location )
+        {
+            return person;
+        }
+    }
+    throw std::runtime_error ( "Person not found at location: " +
+                              Convert::toString( location.x )   +
+                              " " +
+                              Convert::toString( location.y ) );
+}
+
+
 unsigned Map :: getTotalAsciimonWeight  () const
 {
     unsigned total = 0;

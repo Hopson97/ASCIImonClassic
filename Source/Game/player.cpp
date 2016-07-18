@@ -6,12 +6,6 @@
 
 Player :: Player()
 {
-    Asciimon_Loader loader;
-    Asciimon a;
-
-    loader.load( &a, 1 );
-    a.setLevel( 5 );
-    m_asciimon.push_back( a );
 }
 
 const Vector2i& Player :: getFieldLocation() const
@@ -44,3 +38,38 @@ void Player :: setName ( const std::string& name )
 {
     m_name = name;
 }
+
+void Player :: give ( const Asciimon& asciimon )
+{
+    m_asciimon.insert( m_asciimon.begin(), asciimon );
+}
+
+void Player :: healAll ()
+{
+    for ( Asciimon& asciimon : m_asciimon )
+    {
+        asciimon.fullRestore();
+    }
+}
+
+const Vector2i& Player :: getDirection ()
+{
+    return m_fieldData.direction;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

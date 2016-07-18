@@ -17,18 +17,18 @@ class Level
 
         void setLevel   ( unsigned level );
 
-    private:
         void levelUp        ();
-        unsigned  getExpOverflow ();
 
     private:
+        unsigned  getExpOverflow ();
+
         unsigned m_level = 1;
 
         unsigned m_currentExp = 0;
         unsigned m_expForNextLevel = 20;
         unsigned m_totalExp = 0;
 
-        double expIncrease = 1.05;
+        double expIncrease = 1.1;
 
 };
 

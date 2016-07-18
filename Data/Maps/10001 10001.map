@@ -1,16 +1,24 @@
 MAP
-####
-#..#
-#..#
-##n#
+{{{{{{{{{
+{___@___{
+{_______{
+{_______{
+{_______{
+{_______{
+{_______{
+{{{{n{{{{
 END
 
 NAME
-Room Test
+ASCIImon Hospital
 
 PORTAL
 GOES TO
 0 0
 PLAYER STANDS
 6 15
+END
+
+PERSON
+Nurse
 END

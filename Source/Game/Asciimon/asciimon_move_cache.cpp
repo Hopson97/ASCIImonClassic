@@ -1,6 +1,7 @@
 #include "asciimon_move_cache.h"
 
 #include <map>
+#include "sound_manager.h"
 
 std::map<std::string, Asciimon_Move_Cache> mainMoveCache;
 
@@ -30,3 +31,35 @@ const Asciimon_Move_Cache::Info& Asciimon_Move_Cache :: getInfo() const
 {
     return m_info;
 }
+
+void  Asciimon_Move_Cache :: playSound () const
+{
+    sf::Sound sound;
+    sound.setBuffer( Sound_Manager::getSound( m_info.name ) );
+
+    sound.play();
+
+    while (sound.getStatus() == sf::Sound::Playing);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

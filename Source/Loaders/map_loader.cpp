@@ -16,8 +16,10 @@ const std::string nameSection           =   "NAME";
 const std::string mapSection            =   "MAP";
 const std::string portalSection         =   "PORTAL";
 const std::string encrAsciimonSection   =   "ASCIIMON";
+const std::string personSection         =   "PERSON";
 
 unsigned portalsRead = 0;
+unsigned peopleRead = 0;
 
 Map_Loader :: Map_Loader ()
 {
@@ -29,13 +31,16 @@ void Map_Loader :: load ( Map* p_map )
     m_p_map = p_map;
 
     m_p_map->m_portals.clear();
+    m_p_map->m_people.clear();
     m_p_map->m_currentArea.clear();
     m_p_map->m_encounterableASCIImon.clear();
 
     m_p_map->m_size.reset();
     portalsRead = 0;
+    peopleRead = 0;
 
     readFile( fileType );
+    Game::printToLog( "Map " + getFileName() + " loaded."  );
 }
 
 void Map_Loader :: readName ()
@@ -46,11 +51,13 @@ void Map_Loader :: readName ()
 
 void Map_Loader :: readMapChars ()
 {
+    Game::printToLog( "Reading map chars"  );
     while ( !endOfSection() )
     {
         m_p_map->m_currentArea.append( getCurrentLineString() );
 
         countPortalsOnLine();
+        countPeopleOnLine();
 
         m_p_map->m_size.x =  getCurrentLineString().length();
         m_p_map->m_size.y += 1;
@@ -68,6 +75,18 @@ void Map_Loader :: countPortalsOnLine  ()
                 unsigned y = m_p_map->m_size.y;
                 m_p_map->m_portals.push_back( Portal( { (int)x, (int)y } ) );
             }
+        }
+    }
+}
+
+void Map_Loader :: countPeopleOnLine ()
+{
+    for ( unsigned x = 0 ; x < getCurrentLineString().length() ; x++ )
+    {
+        if ( getCurrentLineString().at( x ) == '@' )
+        {
+            unsigned y = m_p_map->m_size.y;
+            m_p_map->m_people.push_back( Person( { (int)x, (int)y } ) );
         }
     }
 }
@@ -141,12 +160,33 @@ const std::string Map_Loader :: getFileName () const
             Convert::toString( location.y ) + ".map";
 }
 
+void Map_Loader :: readPerson ()
+{
+    Loader_Base::readLine();
+    std::string name = getCurrentLineString();
+
+    if ( name == "Nurse" )
+    {
+        Image image( "nurse" );
+        m_p_map->m_people.at( peopleRead++ ).setUp( "nurse", image, Person_Type::Nurse );
+    }
+    else
+    {
+        Image image ( name );
+        readLine();
+        m_p_map->m_people.at( peopleRead++ ).setUp( getCurrentLineString(), image );
+    }
+    readLine();
+    return;
+}
+
 void Map_Loader :: bindKeywords()
 {
     addKeyword( std::bind ( &Map_Loader::readName,                  this ), nameSection );
     addKeyword( std::bind ( &Map_Loader::readMapChars,              this ), mapSection );
     addKeyword( std::bind ( &Map_Loader::readPortal,                this ), portalSection );
     addKeyword( std::bind ( &Map_Loader::readEncounterableAsciimon, this ), encrAsciimonSection );
+    addKeyword( std::bind ( &Map_Loader::readPerson,                this ), personSection );
 }
 
 

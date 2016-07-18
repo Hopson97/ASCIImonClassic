@@ -13,8 +13,14 @@ class Asciimon_Stat
 
         void print      () const;
 
-        unsigned getMaxValue () const;
-        unsigned getCurrValue () const;
+        unsigned getMaxValue    () const;
+        unsigned getCurrValue   () const;
+
+        void deduct ( unsigned amount );
+
+        void reset  ();
+
+        void printVal ();
 
     private:
         unsigned m_maxValue;

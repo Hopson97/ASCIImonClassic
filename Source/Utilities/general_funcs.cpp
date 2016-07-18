@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <cstdlib>
+#include <keyboard.h>
 
 namespace General
 {
@@ -27,5 +28,41 @@ bool isStringNumrical ( const std::string& str )
 
     return true;
 }
+
+unsigned getInput ( int min, int max,
+                    std::function<void(void)> printOptions, std::function<void(void)> invalidInput)
+{
+    int input;
+    while ( true )
+    {
+        input = (int)Keyboard::waitForKey();
+
+        if ( !std::isdigit( input ) )
+        {
+            invalidInput();
+            printOptions();
+            continue;
+        }
+
+        input -= 48;
+
+        if ( !(input >= min && input <= max ) )
+        {
+            invalidInput();
+            printOptions();
+            continue;
+        }
+        break;
+    }
+    return input;
+}
+
+
+
+
+
+
+
+
 
 }

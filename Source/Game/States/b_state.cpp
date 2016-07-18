@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../game.h"
+#include "game_funcs.h"
 #include "../../Utilities/console_funcs.h"
 #include "../../Utilities/keyboard.h"
 
@@ -10,11 +11,13 @@
     The base class for all the games states, such as menus, roaming, battles etc
 */
 
+#include "asciimon_evolver.h"
+
 namespace State
 {
 
 State_Base :: State_Base ( Game_Main& game)
-:   m_game   ( game )
+    :   m_game   ( game )
 { }
 
 
@@ -73,6 +76,17 @@ void State_Base :: changeInputKeys ()
     drawInputs();
     std::cout << question << "right? ";
     m_movementInputKeys.moveRight = Keyboard::waitForKey();
+}
+
+void State_Base :: checkForEvolve ( Asciimon& asciimon )
+{
+    if ( asciimon.canEvolve() )
+    {
+        auto id = asciimon.getEvolveId();
+
+        Asciimon_Evolver evolver ( asciimon, id );
+        evolver.evolve();
+    }
 }
 
 }

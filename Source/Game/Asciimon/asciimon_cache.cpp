@@ -78,3 +78,13 @@ Asciimon_Cache :: getLevelUpMoves () const
 {
     return m_levelUpMoves;
 }
+
+const Asciimon_Cache :: Evolution& Asciimon_Cache :: getEvolution () const
+{
+    return m_evolution;
+}
+
+Asciimon_Type Asciimon_Cache :: getType () const
+{
+    return m_type;
+}

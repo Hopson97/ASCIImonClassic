@@ -8,7 +8,9 @@ const std::vector<char> blocks =
 {
     '#',
     '{',
-    '+'
+    '+',
+    '@',
+    '-'
 };
 
 const std::vector <char> water =
@@ -30,8 +32,10 @@ const std::map<char, Console::Foreground_Colour> colours =
     { '@',  Console::Foreground_Colour::CYAN        },
 
     { '#',  Console::Foreground_Colour::DARKRED     },  //Common tiles, eg block, grass, sand etc
-    { '.',  Console::Foreground_Colour::GREEN       },
-    { '\'', Console::Foreground_Colour::YELLOW      },
+    { '.',  Console::Foreground_Colour::GREEN       },  //grass
+    { '_',  Console::Foreground_Colour::WHITE       },  //flooring
+    { '-',  Console::Foreground_Colour::GRAY        },  //Table
+    { '\'', Console::Foreground_Colour::YELLOW      },  //No clue
 
 
     { '>',  Console::Foreground_Colour::MAGENTA     },  //Move tiles
@@ -47,7 +51,7 @@ const std::map<char, Console::Foreground_Colour> colours =
 
     { '+', Console::Foreground_Colour::RED          },  //"Health" sign
 
-    { '{', Console::Foreground_Colour::GRAY         },  //Buildings/ walls 10 FEET MORE!
+    { '{', Console::Foreground_Colour::GRAY         },  //Buildings/ walls
 
     { '~', Console::Foreground_Colour::BLUE         },  //Water
     { '*', Console::Foreground_Colour::DARKBLUE     }   //Water

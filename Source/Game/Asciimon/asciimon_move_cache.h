@@ -2,6 +2,7 @@
 #define ASCIIMON_MOVE_CACHE_H
 
 #include <string>
+#include "sound_manager.h"
 
 #include "e_asciimon_types.h"
 
@@ -26,8 +27,13 @@ class Asciimon_Move_Cache
 
         const Info& getInfo () const;
 
+        void playSound () const;
+
     private:
         Info m_info;
+
+        bool m_isSoundLoaded = false;
 };
+
 
 #endif // ASCIIMON_MOVE_CACHE_H

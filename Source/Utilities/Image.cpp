@@ -46,3 +46,8 @@ void Image :: draw() const
 {
     std::cout << m_image << std::endl;
 }
+
+void Image :: setColour ( Console::Foreground_Colour colour  )
+{
+    m_colour = colour;
+}

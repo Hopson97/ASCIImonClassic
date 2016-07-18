@@ -10,6 +10,7 @@
 class Talk_Scene
 {
     public:
+        Talk_Scene      ();
         Talk_Scene      ( const std::string& file, const Image& image );
 
         void begin      ();

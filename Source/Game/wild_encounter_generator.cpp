@@ -100,7 +100,7 @@ unsigned Roaming :: getWildAsciimonIdToEncounter ( const unsigned chance, unsign
             asciimon.upperBound >= chance )
         {
             level = asciimon.level;
-            return asciimon.id + 1;
+            return asciimon.id;;
         }
     }
     return FAILURE; //If this messes up somehow, then it returns an error number.

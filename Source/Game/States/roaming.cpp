@@ -10,13 +10,16 @@
 #include "../game_funcs.h"
 #include "../Map/d_tiles.h"
 
+#include "Music_Manager.h"
+
 namespace State
 {
 
 Roaming :: Roaming ( Game_Main& game, const Vector2i& mapLocation )
-:   State_Base  ( game )
-,   m_map       ( mapLocation.x, mapLocation.y )
+    :   State_Base  ( game )
+    ,   m_map       ( mapLocation.x, mapLocation.y )
 {
+    Music_Manager::pushSong( "Theme" );
     m_mapLoader.load( &m_map );
 }
 
@@ -48,6 +51,16 @@ void Roaming :: input ()
     else if ( key == 'c')
     {
         changeInputKeys ();
+    }
+    else if ( key == 'i' )
+    {
+        if ( getTileAtPlayerDirection() == '@' )
+        {
+            m_map.getPersonAt( getPlayer().getFieldLocation() +
+                               getPlayer().getDirection() ).interact ( getPlayer() );
+            getGame().setRedrawNeeded();
+
+        }
     }
 }
 
@@ -135,8 +148,8 @@ void Roaming :: checkForPortal ()
         if ( getTileAtPlayerNextLocation() == tile.first )
         {
             const Portal& portal = m_map.
-                                    getPortalAt( getPlayer().getFieldLocation()
-                                                 + m_nextMove );
+                                   getPortalAt( getPlayer().getFieldLocation()
+                                                + m_nextMove );
             m_map.setLocation( portal.getGoesTo() );
             getPlayer().setFieldPosition( portal.getPlayerStands() );
             m_nextMove.reset();
@@ -158,6 +171,11 @@ char Roaming :: getTileAtPlayerCurrLocation ()
     return m_map.at( getPlayer().getFieldLocation() );
 }
 
+char Roaming :: getTileAtPlayerDirection       ()
+{
+    return m_map.at( getPlayer().getFieldLocation() +
+                     getPlayer().getDirection() );
+}
 
 /*  After going through a move tile, the map will change, thus the player must move to a different location
     in the field depending on the direction

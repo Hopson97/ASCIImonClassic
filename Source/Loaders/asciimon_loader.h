@@ -18,6 +18,8 @@ class Asciimon_Loader : public Loader_Base
 
         void getLvlUpMoves  ();
 
+        void getAsciipedia  ();
+
         void setFinalStats  ();
 
         void bindKeywords   () override;

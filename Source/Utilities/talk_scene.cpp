@@ -7,6 +7,11 @@
 #include "general_funcs.h"
 #include "game_funcs.h"
 
+Talk_Scene::Talk_Scene()
+{
+
+}
+
 
 Talk_Scene::Talk_Scene ( const std::string& file, const Image& image )
 :   m_animText ( image )
@@ -20,8 +25,6 @@ void Talk_Scene :: begin()
     for ( auto& line : m_lines )
     {
         m_animText.setText( constructString( line ) );
-
-        //m_animText.setText( line );
         m_animText.display();
     }
 }

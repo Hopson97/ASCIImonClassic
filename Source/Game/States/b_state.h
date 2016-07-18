@@ -5,6 +5,8 @@
     The base class for all the games states, such as menus, roaming, battles etc
 */
 
+#include "asciimon.h"
+
 class Player;
 class Game_Main;
 
@@ -38,6 +40,8 @@ class State_Base
         void drawInputs         ();
 
         void changeInputKeys    ();
+
+        void checkForEvolve     ( Asciimon& asciimon );
 
     protected:
 

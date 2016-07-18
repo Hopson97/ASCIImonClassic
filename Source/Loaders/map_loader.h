@@ -17,7 +17,9 @@ class Map_Loader : private Loader_Base
         void readName               ();
         void readMapChars           ();
         void countPortalsOnLine     ();
+        void countPeopleOnLine      ();
         void readPortal             ();
+        void readPerson             ();
 
         void bindKeywords           () override;
 

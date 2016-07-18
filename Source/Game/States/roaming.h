@@ -48,6 +48,8 @@ class Roaming : public State_Base
 
         char getTileAtPlayerCurrLocation    ();
 
+        char getTileAtPlayerDirection       ();
+
 
         void setPlayerPosAfterMapMove       ( const char tile );
 

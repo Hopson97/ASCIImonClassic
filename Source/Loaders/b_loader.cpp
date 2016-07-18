@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <iostream>
 
+#include "game_funcs.h"
+
 void Loader_Base :: addKeyword ( std::function<void(void)> function, const std::string& keyword)
 {
     m_keywords[keyword] = function;
@@ -42,12 +44,10 @@ void Loader_Base :: readFile ( const std::string& fileType )
 
     while ( readLine() )
     {
-        if ( checkForWord( "//" ) ) continue;
         if ( checkForWord( "HARDEND") ) break;
         checkLineForKeyword();
     }
     m_inFile.close();
-
 }
 
 //Goes through the function/ keyword list and calls a function if the keyword matches the read line
@@ -121,30 +121,35 @@ bool Loader_Base :: readLine ()
 
 void Loader_Base :: readVector2i ( Vector2i& vector )
 {
+    Game::printToLog( "Reading a vector2i (loader)" );
     m_inFile >> vector.x >> vector.y;
 }
 
 
 void Loader_Base :: readImage( Image& image )
 {
+    Game::printToLog( "Reading a image (loader)" );
     image.loadFromStream( m_inFile );
 }
 
 
 void Loader_Base :: readNumber ( int& number )
 {
+    Game::printToLog( "Reading a integer (loader)" );
     m_inFile >> number;
 }
 
 
 void Loader_Base :: readNumber ( unsigned& number )
 {
+    Game::printToLog( "Reading a unsigned (loader)" );
     m_inFile >> number;
 }
 
 
 void Loader_Base :: readString ( std::string& data )
 {
+    Game::printToLog( "Reading a string (loader)" );
     readLine();
     data = m_line;
 }
@@ -160,6 +165,8 @@ bool Loader_Base :: checkForWord ( const std::string& wordToCheckFor ) const
 void Loader_Base :: throwUnrecognisedWord   () const
 {
     if ( m_line == "") return;
+
+    Game::printToLog( "Found unknown word" + m_line );
     throw std::runtime_error ( "\tFound unknown word: " +
                                 m_line +
                                ", terminating program.\
@@ -178,7 +185,7 @@ bool Loader_Base :: endOfSection ()
 void Loader_Base :: openFile ( const std::string& type, const std::string& path )
 {
     m_inFile.open ( path );
-
+    Game::printToLog( "Opening" + path );
     if ( !m_inFile.is_open() ) {
         throw std::runtime_error ( "File type of type \"" + type +
                                   "\" at \"" + path +

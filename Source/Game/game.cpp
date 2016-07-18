@@ -7,8 +7,8 @@
 
 Game_Main :: Game_Main ()
 {
-    m_states.pushState( new State::Roaming( *this, {0, 0 } ) );
-    //m_states.pushState( new State::New_Game ( *this ) );
+    //m_states.pushState( new State::Roaming( *this, {0, 0 } ) );
+    m_states.pushState( new State::New_Game ( *this ) );
 }
 
 
