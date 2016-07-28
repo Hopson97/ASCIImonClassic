@@ -43,7 +43,7 @@ New_Game::New_Game(Game_Main& game)
 void New_Game :: input()
 {
     Image image( "prof" );
-/*
+
     Talk_Scene profIntro( "new_game_1", image );
     profIntro.begin();
 
@@ -53,17 +53,17 @@ void New_Game :: input()
     Talk_Scene profOutro( "new_game2", image );
     profOutro.setVar( "name", name );
     profOutro.begin();
-*/
+
     printAsciimnStarters();
 
     int option = General::getInput( 1, 3, std::bind( &printAsciimnStarters, this ),
                                           std::bind( &invalid,              this )
                                    );
-    /*
+
     Talk_Scene asciimonGiven ( "new_game3", image );
     asciimonGiven.setVar( "am_name", m_asciimon.at( option - 1 )->getName() );
     asciimonGiven.begin();
-    */
+
 
     getPlayer().give( *m_asciimon.at( option - 1 ) );
     getGame().getStates().pushState( new State::Roaming( getGame(), {10003, 10003 } ) );

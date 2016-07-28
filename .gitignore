@@ -3,6 +3,10 @@
 
 
 Old_Versions/
+Log/
+
+*.dll 
+#All the .dll files are just SFML linkers, avaliable from their website
 
 # Created by https://www.gitignore.io/api/codeblocks
 
