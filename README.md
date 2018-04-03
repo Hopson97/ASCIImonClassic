@@ -5,13 +5,13 @@ With Pokemon Go coming out, I decided to make a Pokemon-like game (eg the handhe
 
 It starts off like a regular pokemon game, talking to a "Pokemon Prof." (But a "Asciimon Prof") and then you just get thrown into a world where you can walk around and encouner Asciimon.
 
-#Screenshots:
+# Screenshots:
 
 #### Logo
 
 ![Logo](http://i.imgur.com/G3qBfeo.png "Logo")
 
-####The introduction
+#### The introduction
 
 ![introduction](http://i.imgur.com/NJMcx5J.png "introduction")
 
