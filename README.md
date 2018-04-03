@@ -7,7 +7,7 @@ It starts off like a regular pokemon game, talking to a "Pokemon Prof." (But a "
 
 #Screenshots:
 
-####Logo
+#### Logo
 
 ![Logo](http://i.imgur.com/G3qBfeo.png "Logo")
 
@@ -15,33 +15,33 @@ It starts off like a regular pokemon game, talking to a "Pokemon Prof." (But a "
 
 ![introduction](http://i.imgur.com/NJMcx5J.png "introduction")
 
-####Roaming
+#### Roaming
 
 The different characters represent different "tiles" eg green '.' is grass and grey '{' are buildings.
 
 ![Roaming](http://i.imgur.com/VvFosbH.png "Roaming")
 
-###Encounter
+### Encounter
 
 ![Encounter](http://i.imgur.com/S8Yu7w3.png "Encounter")
 
-####Encounter - Battle Scene
+#### Encounter - Battle Scene
 
 ![Encounter](http://i.imgur.com/tgLc8oW.png "Encounter")
 
-####Encounter - Move Selector
+#### Encounter - Move Selector
 
 ![Encounter](http://i.imgur.com/DdesqXO.png "Encounter")
 
 
-####Defeating the Enemy
+#### Defeating the Enemy
 
 ![Encounter](http://i.imgur.com/S8Yu7w3.png "Encounter")
 
 
 More images in the album: http://imgur.com/gallery/wwb6F
 
-#Design
+# Design
 The game uses a pretty standard game-state pattern, where the state of the program can change. Eg, it switches from menu state to intro state to roaming state to wild battle state, pops back to roaming state etc
 
     void Game_Main :: runLoop ()
